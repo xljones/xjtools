@@ -15,7 +15,7 @@ _VERSION = "1.0.0"
 _ROOT_DIR = os.path.dirname(os.path.abspath(__file__))
 _NEWFILE = """'''
     Script:      my-tools/$FILENAME
-    Description: Create a new tool in this directory
+    Description: ...
     Author:      Xander Jones (xander@xljones.com)
     Web:         xljones.com
     Date:        $DATE
