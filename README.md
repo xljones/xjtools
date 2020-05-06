@@ -20,7 +20,7 @@ tools() {
     elif [ "$1" = "list" ]; then
       python3 $INSTALL_DIR/list.py ${@:2}
     else
-      FILE=$INSTALL_DIR/$1.py
+      FILE=$INSTALL_DIR/tools/$1.py
       if test -f "$FILE"; then
         python3 $FILE ${@:2}
       else
