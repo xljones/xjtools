@@ -7,16 +7,25 @@ Collection of small tools and scripts used daily, along with a small framework f
 ```bash
 # function to call the py tool if exists with arguments
 tools() {
+  INSTALL_DIR=~/GitHub/my-tools
   # If no arguments given, jump straight to the tools folder
   if [ -z "$1" ]; then
     cd ~/GitHub/my-tools
   # if arguments are given, try and run the script with additional arguments given
   else
-    FILE=~/GitHub/my-tools/$1.py
-    if test -f "$FILE"; then
-      python3 $FILE ${@:2}
+    if [ "$1" = "new" ]; then
+      python3 $INSTALL_DIR/new.py ${@:2}
+    elif [ "$1" = "edit" ]; then
+      python3 $INSTALL_DIR/edit.py ${@:2}
+    elif [ "$1" = "list" ]; then
+      python3 $INSTALL_DIR/list.py ${@:2}
     else
-      echo "Error: Tool not found"
+      FILE=$INSTALL_DIR/$1.py
+      if test -f "$FILE"; then
+        python3 $FILE ${@:2}
+      else
+        echo "Error: tool not found"
+      fi
     fi
   fi
 }

@@ -1,5 +1,5 @@
 '''
-    Script:      my-tools/new.py
+    Script:      my-tools:new.py
     Description: Create a new tool in this directory
     Author:      Xander Jones (xander@xljones.com)
     Web:         xljones.com
@@ -11,10 +11,10 @@ import argparse
 import os
 import sys
 
-_VERSION = "1.0.0"
+_VERSION = "1.0.1"
 _ROOT_DIR = os.path.dirname(os.path.abspath(__file__))
 _NEWFILE = """'''
-    Script:      my-tools/$FILENAME
+    Script:      my-tools:$FILENAME
     Description: ...
     Author:      Xander Jones (xander@xljones.com)
     Web:         xljones.com
@@ -29,7 +29,7 @@ _VERSION = \"1.0.0\"
 _ROOT_DIR = os.path.dirname(os.path.abspath(__file__))
 
 if (__name__ == \"__main__\"):
-    p = argparse.ArgumentParser(description='my-tools/$FILENAME (v{0})'.format(_VERSION))
+    p = argparse.ArgumentParser(description='my-tools:$FILENAME (v{0})'.format(_VERSION))
     # p.add_argument("positional_argument")
     # p.add_argument('-s', '--string', help='')
     # p.add_argument('-b', '--bool', help='', action='store_true')
@@ -40,8 +40,8 @@ if (__name__ == \"__main__\"):
 def _create_new_tool(newfile, name):
     root_dir = os.path.dirname(os.path.abspath(__file__))
     filename = "{0}.py".format(name)
-    filepath = os.path.join(root_dir, filename)
-    
+    filepath = os.path.join(root_dir, "tools", filename)
+
     if os.path.exists(filepath):
         print("Error: File '{0}' already exists".format(filename))
         exit(1)
