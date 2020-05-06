@@ -1,8 +1,9 @@
 '''
-    Script:  my-tools/edit.py
-    Author:  Xander Jones (xander@xljones.com)
-    Web:     xljones.com
-    Date:    06 May 2020
+    Script:      my-tools/edit.py
+    Description: Edit a tool in this directory
+    Author:      Xander Jones (xander@xljones.com)
+    Web:         xljones.com
+    Date:        06 May 2020
 '''
         
 import argparse

@@ -1,8 +1,9 @@
 '''
-    Script:  my-tools/new.py
-    Author:  Xander Jones (xander@xljones.com)
-    Web:     xljones.com
-    Date:    06 May 2020
+    Script:      my-tools/new.py
+    Description: Create a new tool in this directory
+    Author:      Xander Jones (xander@xljones.com)
+    Web:         xljones.com
+    Date:        06 May 2020
 '''
 
 import datetime
@@ -13,10 +14,11 @@ import sys
 _VERSION = "1.0.0"
 _ROOT_DIR = os.path.dirname(os.path.abspath(__file__))
 _NEWFILE = """'''
-    Script:  my-tools/$FILENAME
-    Author:  Xander Jones (xander@xljones.com)
-    Web:     xljones.com
-    Date:    $DATE
+    Script:      my-tools/$FILENAME
+    Description: Create a new tool in this directory
+    Author:      Xander Jones (xander@xljones.com)
+    Web:         xljones.com
+    Date:        $DATE
 '''
 
 import argparse
