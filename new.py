@@ -11,7 +11,7 @@ import argparse
 import os
 import sys
 
-_VERSION = "1.0.1"
+_VERSION = "1.0.2"
 _ROOT_DIR = os.path.dirname(os.path.abspath(__file__))
 _NEWFILE = """'''
     Script:      my-tools:$FILENAME
@@ -27,6 +27,9 @@ import sys
 
 _VERSION = \"1.0.0\"
 _ROOT_DIR = os.path.dirname(os.path.abspath(__file__))
+
+def _do_something():
+    print("Hello World! from {0}".format(__file__))
 
 if (__name__ == \"__main__\"):
     p = argparse.ArgumentParser(description='my-tools:$FILENAME (v{0})'.format(_VERSION))
