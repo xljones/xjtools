@@ -29,7 +29,7 @@ The following command can be run from anywhere on your computer if you have inst
 tools list
 ```
 produces the following output
-```
+```bash
 $ tools list
 +-------+---------+-----------------------------------------------+
 | Tool  | Version | Description                                   |
@@ -40,16 +40,16 @@ $ tools list
 | new   |  1.0.0  | Create a new tool in this directory           |
 +-------+---------+-----------------------------------------------+
 ```
-### To call a tool for use
-```
+### Call a tool for use
+```bash
 tools <tool_name> [optional_arguments]
 ```
-### Create a new tool:
-```
+### Create a new tool
+```bash
 tools new <tool_name>
 ```
 ### Edit a tool
 By default this opens in Atom. If this is not installed you will need to modify this script
-```
+```bash
 tools edit <tool_name>
 ```
