@@ -12,12 +12,11 @@ import sys
 import re
 import prettytable
 
-_VERSION = "1.0.0"
+_VERSION = "1.0.1"
 
 def _list_scripts():
     root_dir = os.path.dirname(os.path.abspath(__file__))
     files = os.listdir(root_dir)
-    print(root_dir)
     re_version = "_VERSION = \"(.*)\""
     re_desc = "    Description: (.*)"
 
