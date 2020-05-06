@@ -19,3 +19,18 @@ tools() {
   fi
 }
 ```
+
+To create a new tool (from anywhere):
+```
+tools new <tool_name>
+```
+
+To edit a tool, call (from anywhere):
+```
+tools edit <tool_name>
+```
+
+To call a tool for use (from anywhere):
+```
+tools <tool_name> [optional_arguments]
+```
