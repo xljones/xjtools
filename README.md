@@ -29,7 +29,7 @@ The following command can be run from anywhere on your computer if you have inst
 tools list
 ```
 produces the following output
-```bash
+```
 $ tools list
 +-------+---------+-----------------------------------------------+
 | Tool  | Version | Description                                   |
