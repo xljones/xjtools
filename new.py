@@ -12,7 +12,7 @@ import os
 import sys
 
 _VERSION = "1.0.2"
-_ROOT_DIR = os.path.dirname(os.path.abspath(__file__))
+
 _NEWFILE = """'''
     Script:      my-tools:$FILENAME
     Description: ...
@@ -26,7 +26,6 @@ import os
 import sys
 
 _VERSION = \"1.0.0\"
-_ROOT_DIR = os.path.dirname(os.path.abspath(__file__))
 
 def _do_something():
     print("Hello World! from {0}".format(__file__))
@@ -40,20 +39,21 @@ if (__name__ == \"__main__\"):
 
     _do_something()"""
 
-def _create_new_tool(newfile, name):
+def _create_new_tool(newfile, tool_name):
     root_dir = os.path.dirname(os.path.abspath(__file__))
-    filename = "{0}.py".format(name)
+    filename = "{0}.py".format(tool_name)
     filepath = os.path.join(root_dir, "tools", filename)
 
     if os.path.exists(filepath):
-        print("Error: File '{0}' already exists".format(filename))
+        print("Error: Tool '{0}' already exists".format(tool_name))
         exit(1)
     else:
         f = open(filepath, "w+")
-        for find, replace in {"$FILENAME":filename, "$NAME":name, "$DATE":datetime.datetime.now().strftime("%d %b %Y")}.items():
+        for find, replace in {"$FILENAME":filename, "$NAME":tool_name, "$DATE":datetime.datetime.now().strftime("%d %b %Y")}.items():
             newfile = newfile.replace(find, replace)
         f.write(newfile)
         f.close()
+        print("Done: A new tool '{0}' has been created. Use `tools edit {0}` to edit".format(tool_name))
 
 if (__name__ == "__main__"):
     p = argparse.ArgumentParser(description='my-tools/new.py (v{0})'.format(_VERSION))
