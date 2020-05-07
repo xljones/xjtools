@@ -57,7 +57,7 @@ $ tools list
 ```
 ### Call a tool for use
 ```bash
-tools <tool_name> [optional_arguments]
+tools TOOL_NAME [optional_arguments]
 ```
 ### Create a new tool
 ```bash
