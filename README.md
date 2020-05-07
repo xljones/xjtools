@@ -19,6 +19,12 @@ tools() {
       python3 $INSTALL_DIR/edit.py ${@:2}
     elif [ "$1" = "list" ]; then
       python3 $INSTALL_DIR/list.py ${@:2}
+    elif [ "$1" = "delete" ]; then
+      python3 $INSTALL_DIR/delete.py ${@:2}
+    elif [ "$1" = "rename" ]; then
+      python3 $INSTALL_DIR/rename.py ${@:2}
+    elif [ "$1" = "duplicate" ]; then
+      python3 $INSTALL_DIR/duplicate.py ${@:2}
     else
       FILE=$INSTALL_DIR/tools/$1.py
       if test -f "$FILE"; then
