@@ -61,10 +61,14 @@ tools <tool_name> [optional_arguments]
 ```
 ### Create a new tool
 ```bash
-tools new <tool_name>
+tools new TOOL_NAME
 ```
 ### Edit a tool
 By default this opens in Atom. If this is not installed you will need to modify this script
 ```bash
-tools edit <tool_name>
+tools edit TOOL_NAME
 ```
+### Delete a tool
+This moves the tool into a sub hidden folder called `.deleted`, and appends an index value to the file if there are more than 1 of the same name.
+```bash
+tools delete TOOL_NAME
