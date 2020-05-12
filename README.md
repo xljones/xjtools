@@ -3,14 +3,15 @@ Collection of small tools and scripts used daily, along with a small framework f
 
 ## Installation
 1. Clone this repository
-2. Add the following to `~/.zshrc`, or `~/.bashrc` depending on zsh or bash terminal use:
+2. Add the following to `~/.zshrc`, or `~/.bashrc` depending on zsh or bash terminal use
+3. Modify the `INSTALL_DIR` to the directory where the repository has been cloned to.
 ```bash
 # function to call the py tool if exists with arguments
 tools() {
   INSTALL_DIR=~/GitHub/my-tools
   # If no arguments given, jump straight to the tools folder
   if [ -z "$1" ]; then
-    cd ~/GitHub/my-tools
+    cd $INSTALL_DIR
   # if arguments are given, try and run the script with additional arguments given
   else
     if [ "$1" = "new" ]; then
@@ -41,32 +42,40 @@ tools() {
 The following command can be run from anywhere on your computer if you have installed the alias in the installation instructions.
 ### List the tools
 ```bash
-tools list
+$ tools list
 ```
 produces the following output
 ```
 $ tools list
-+-------+---------+-----------------------------------------------+
-| Tool  | Version | Description                                   |
-+-------+---------+-----------------------------------------------+
-| list  |  1.0.0  | List all of the scripts in this directory     |
-| upper |  1.0.0  | Convert any following arguments to upper case |
-| edit  |  1.0.0  | Edit a tool in this directory                 |
-| new   |  1.0.0  | Create a new tool in this directory           |
-+-------+---------+-----------------------------------------------+
++---------+---------+-----------------------------------------------------+
+| Tool    | Version | Description                                         |
++---------+---------+-----------------------------------------------------+
+| upper   |  1.0.0  | Convert any following arguments to upper case       |
+| minlink |  1.0.0  | Convert a Bugsnag long link into useful information |
++---------+---------+-----------------------------------------------------+
 ```
 ### Call a tool for use
 ```bash
-tools TOOL_NAME [optional_arguments]
+$ tools TOOL_NAME [arguments] arguments
 ```
 ### Create a new tool
 ```bash
-tools new TOOL_NAME
+$ tools new TOOL_NAME
 ```
 ### Edit a tool
-By default this opens in Atom. If this is not installed you will need to modify this script
+By default this opens in Atom. If this is not installed you will need to modify the zsh script
 ```bash
 tools edit TOOL_NAME
+```
+### Rename a tool
+Renaming a tool will also update the internals to reflect the changes, and up the change date to today
+```bash
+tools rename TOOL_NAME NEW_NAME
+```
+### Duplicate a tool
+Duplicating a tool is similar to renaming, but won't remove the old script you've copied from.
+```bash
+tools duplicate TOOL_NAME DUPLICATE_NAME
 ```
 ### Delete a tool
 This moves the tool into a sub hidden folder called `.deleted`, and appends an index value to the file if there are more than 1 of the same name.
