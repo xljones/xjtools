@@ -31,7 +31,7 @@ def _bugsnag_minify(link):
                 event_id = match
                 # strip the event_id to empty string if it doesn't exist.
                 if event_id == None:
-                    event_id = "NOOOO"
+                    event_id = ""
                 else:
                     event_id = "?{0}".format(event_id)
 
