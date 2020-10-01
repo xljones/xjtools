@@ -18,16 +18,15 @@ def _list_scripts(tools_directory = "../tools"):
     re_version = "_VERSION = \"(.*)\""
     re_desc = "    Description: (.*)"
 
-    table = prettytable.PrettyTable(["Tool", "Version", "Description"])
+    table = prettytable.PrettyTable(["#", "Tool", "Version", "Description"])
     table.align = "l"
-    table.align["Version"] = "c"
 
     for index, file in enumerate(files):
         if file[-3:] == ".py":
             version = None
             desc = None
             with open(os.path.join(root_dir, tools_directory, file), 'r') as f:
-                for index, line in enumerate(f):
+                for line in f:
                     re_find_version = re.match(re_version, line)
                     re_find_desc = re.match(re_desc, line)
                     if re_find_version:
@@ -36,7 +35,7 @@ def _list_scripts(tools_directory = "../tools"):
                         desc = re_find_desc.groups()[0]
                     if version and desc:
                         break
-            table.add_row([file.replace(".py",""), version, desc])
+            table.add_row([index, file.replace(".py",""), version, desc])
     print(table)
 
 if (__name__ == "__main__"):
