@@ -9,13 +9,13 @@ import argparse
 import os
 import sys
 
-def _edit_tool(name):
+def _edit_tool(tool_name, tools_dir = "../tools"):
     root_dir = os.path.dirname(os.path.abspath(__file__))
-    filename = "{0}.py".format(name)
-    filepath = os.path.join(root_dir, "tools", filename)
+    filename = "{0}.py".format(tool_name)
+    filepath = os.path.join(root_dir, tools_dir, filename)
 
     if not os.path.exists(filepath):
-        print("Error: File '{0}' does not exist. Create it with: tools new {1}".format(filename, name))
+        print("Error: File '{0}' does not exist. Create it with: tools new {1}".format(filename, tool_name))
         exit(1)
     else:
         print("Openning '{0}' in Atom".format(filepath))
