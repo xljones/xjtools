@@ -1,9 +1,9 @@
 '''
-    Script:      my-tools:list.py
-    Description: List all of the scripts in this directory
+    Script:      lib/list.py
+    Description: List all of the scripts in the
+                 ../tools directory
     Author:      Xander Jones (xander@xljones.com)
     Web:         xljones.com
-    Date:        06 May 2020
 '''
 
 import argparse
@@ -12,9 +12,9 @@ import sys
 import re
 import prettytable
 
-def _list_scripts():
+def _list_scripts(tools_directory = "../tools"):
     root_dir = os.path.dirname(os.path.abspath(__file__))
-    files = os.listdir(os.path.join(root_dir, "tools"))
+    files = os.listdir(os.path.join(root_dir, tools_directory))
     re_version = "_VERSION = \"(.*)\""
     re_desc = "    Description: (.*)"
 
@@ -26,7 +26,7 @@ def _list_scripts():
         if file[-3:] == ".py":
             version = None
             desc = None
-            with open(os.path.join(root_dir, "tools", file), 'r') as f:
+            with open(os.path.join(root_dir, tools_directory, file), 'r') as f:
                 for index, line in enumerate(f):
                     re_find_version = re.match(re_version, line)
                     re_find_desc = re.match(re_desc, line)
@@ -40,10 +40,7 @@ def _list_scripts():
     print(table)
 
 if (__name__ == "__main__"):
-    p = argparse.ArgumentParser(description='my-tools:list.py (v{0})'.format(_VERSION))
-    # p.add_argument("positional_argument")
-    # p.add_argument('-s', '--string', help='')
-    # p.add_argument('-b', '--bool', help='', action='store_true')
+    p = argparse.ArgumentParser(description='lib/list.py')
     args = p.parse_args()
 
     _list_scripts()

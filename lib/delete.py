@@ -1,9 +1,9 @@
 '''
-    Script:      my-tools:delete.py
-    Description: ...
+    Script:      lib/delete.py
+    Description: Deletes the selected tool from the ../tools/ dir
+                 by moving it into a subfolder ../tools/.deleted
     Author:      Xander Jones (xander@xljones.com)
     Web:         xljones.com
-    Date:        07 May 2020
 '''
 
 import argparse
@@ -35,10 +35,8 @@ def _delete_tool(tool_name):
             print("Done: Tool '{0}' has been moved to the '.deleted' directory".format(tool_name))
 
 if (__name__ == "__main__"):
-    p = argparse.ArgumentParser(description='my-tools:delete.py (v{0})'.format(_VERSION))
+    p = argparse.ArgumentParser(description='lib/delete.py')
     p.add_argument("tool_name")
-    # p.add_argument('-s', '--string', help='')
-    # p.add_argument('-b', '--bool', help='', action='store_true')
     args = p.parse_args()
 
     _delete_tool(args.tool_name)

@@ -1,9 +1,8 @@
 '''
-    Script:      my-tools:edit.py
+    Script:      lib/edit.py
     Description: Edit a tool in this directory
     Author:      Xander Jones (xander@xljones.com)
     Web:         xljones.com
-    Date:        06 May 2020
 '''
 
 import argparse
@@ -23,10 +22,8 @@ def _edit_tool(name):
         os.system("atom {0}".format(filepath))
 
 if (__name__ == "__main__"):
-    p = argparse.ArgumentParser(description='my-tools/edit.py (v{0})'.format(_VERSION))
+    p = argparse.ArgumentParser(description='lib/edit.py')
     p.add_argument("tool_name")
-    # p.add_argument('-s', '--string', help='')
-    # p.add_argument('-b', '--bool', help='', action='store_true')
     args = p.parse_args()
 
     _edit_tool(args.tool_name)

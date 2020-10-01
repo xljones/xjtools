@@ -1,16 +1,14 @@
 '''
-    Script:      my-tools:duplicate.py
+    Script:      lib/duplicate.py
     Description: Copy a tool and rename the internals
     Author:      Xander Jones (xander@xljones.com)
     Web:         xljones.com
-    Date:        12 May 2020
 '''
 
 import argparse
 import os
 import sys
 import re
-import semver
 import datetime
 
 def _duplicate_tool(tool_name, new_name):
@@ -55,12 +53,9 @@ def _duplicate_tool(tool_name, new_name):
                     newf.write(newline)
 
 if (__name__ == "__main__"):
-    p = argparse.ArgumentParser(description='my-tools:duplicate.py (v{0})'.format(_VERSION))
+    p = argparse.ArgumentParser(description='lib/duplicate.py')
     p.add_argument("tool_name", help='The name of the tool you want to copy')
     p.add_argument("new_name", help="The new name of the duplicate tool")
-    # p.add_argument("positional_argument")
-    # p.add_argument('-s', '--string', help='')
-    # p.add_argument('-b', '--bool', help='', action='store_true')
     args = p.parse_args()
 
     _duplicate_tool(args.tool_name, args.new_name)

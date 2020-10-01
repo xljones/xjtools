@@ -1,16 +1,16 @@
 '''
-    Script:      my-tools:rename.py
-    Description: ...
+    Script:      lib/rename.py
+    Description: Takes in an old tool, and gives it a new name
+                 It will also update the scriptname, date inside
+                 the file, and argparser name.
     Author:      Xander Jones (xander@xljones.com)
     Web:         xljones.com
-    Date:        12 May 2020
 '''
 
 import argparse
 import os
 import re
 import sys
-import semver
 import datetime
 
 def _rename_tool(tool_name, new_name):
@@ -20,9 +20,9 @@ def _rename_tool(tool_name, new_name):
     filepath = os.path.join(root_dir, "tools", filename)
     filepath_new = os.path.join(root_dir, "tools", filename_new)
 
-    re_scriptname = r'^(    Script:      my-tools:)(.*)(\.py)'
+    re_scriptname = r'^(    Script:      tools\/)(.*)(\.py)'
     re_date =       r'^(    Date:        )(\w+ \w+ \w+)'
-    re_argparser =  r'^(    p = argparse\.ArgumentParser\(description=\'my-tools:)(.*)(\.py \(v\{0\}\)\'\.format\(_VERSION\)\))'
+    re_argparser =  r'^(    p = argparse\.ArgumentParser\(description=\'tools\/)(.*)(\.py \(v\{0\}\)\'\.format\(_VERSION\)\))'
 
     if not os.path.exists(filepath):
         print("Error: Tool '{0}' does not exist".format(tool_name))
@@ -59,11 +59,9 @@ def _rename_tool(tool_name, new_name):
 
 
 if (__name__ == "__main__"):
-    p = argparse.ArgumentParser(description='my-tools:rename.py (v{0})'.format(_VERSION))
+    p = argparse.ArgumentParser(description='lib/rename.py')
     p.add_argument("tool_name", help='The name of the tool you want to rename')
     p.add_argument("new_name", help="The new name of the tool it will be changed to")
-    # p.add_argument('-s', '--string', help='')
-    # p.add_argument('-b', '--bool', help='', action='store_true')
     args = p.parse_args()
 
     _rename_tool(args.tool_name, args.new_name)
