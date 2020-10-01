@@ -12,8 +12,6 @@ import sys
 import re
 import prettytable
 
-_VERSION = "1.0.2"
-
 def _list_scripts():
     root_dir = os.path.dirname(os.path.abspath(__file__))
     files = os.listdir(os.path.join(root_dir, "tools"))

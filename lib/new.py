@@ -11,8 +11,6 @@ import argparse
 import os
 import sys
 
-_VERSION = "1.0.2"
-
 _NEWFILE = """'''
     Script:      my-tools:$FILENAME
     Description: ...

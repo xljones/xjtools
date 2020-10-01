@@ -11,8 +11,6 @@ import os
 import sys
 import shutil
 
-_VERSION = "1.0.0"
-
 def _delete_tool(tool_name):
     root_dir = os.path.dirname(os.path.abspath(__file__))
     filename = "{0}.py".format(tool_name)

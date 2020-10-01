@@ -10,8 +10,6 @@ import argparse
 import os
 import sys
 
-_VERSION = "1.0.1"
-
 def _edit_tool(name):
     root_dir = os.path.dirname(os.path.abspath(__file__))
     filename = "{0}.py".format(name)

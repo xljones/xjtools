@@ -13,8 +13,6 @@ import re
 import semver
 import datetime
 
-_VERSION = "1.0.0"
-
 def _duplicate_tool(tool_name, new_name):
     root_dir = os.path.dirname(os.path.abspath(__file__))
     filename = "{0}.py".format(tool_name)
