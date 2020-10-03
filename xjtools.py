@@ -1,5 +1,5 @@
 '''
-    Script:      xj-tools.py
+    Script:      xjtools.py
     Description: ...
     Author:      Xander Jones (xander@xljones.com)
     Web:         xljones.com
@@ -7,9 +7,8 @@
 '''
 
 import argparse
-import os
-import sys
-from lib import list, new, edit, rename, duplicate, delete
+from lib import xjtoolslib
+from lib import xjinstaller
 
 _VERSION = "2.0.0"
 _PROTECTED_TOOL_NAMES = ["new", "edit", "delete", "duplicate", "list", "rename"]
@@ -30,23 +29,19 @@ if (__name__ == "__main__"):
 
     if (args.command == "install"):
         print("Install TBC")
+        # Needs to add to .zshrc
+        # Needs to install requirements
     elif (args.command == "list"): 
-        list._list_scripts()
+        xjtoolslib._list_scripts()
     elif (args.command == "new"):
-        print("NEW")
-        new._create_new_tool(args.tool_name)
+        xjtoolslib._create_new_tool(args.tool_name)
     elif (args.command == "edit"):
-        print("EDIT")
-        edit._edit_tool(args.tool_name)
+        xjtoolslib._edit_tool(args.tool_name)
     elif (args.command == "rename"):
-        print("RENAME")
-        rename._rename_tool(args.tool_name, args.new_tool_name)
+        xjtoolslib._rename_tool(args.tool_name, args.new_tool_name)
     elif (args.command == "duplicate"):
-        print("DUPE")
-        duplicate._duplicate_tool(args.tool_name, args.new_tool_name)
+        xjtoolslib._duplicate_tool(args.tool_name, args.new_tool_name)
     elif (args.command == "delete"):
-        print("DELETE")
-        delete._delete_tool(args.tool_name)
+        xjtoolslib._delete_tool(args.tool_name)
     else:
         print("Unrecognised command")
-    print(args)
