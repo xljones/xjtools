@@ -6,6 +6,7 @@ Collection of small tools and scripts used daily, along with a small framework f
 1. Add the following function to `~/.zshrc`, or `~/.bashrc` depending on zsh or bash terminal use
 1. Modify the `PYTHON_INTERPRETER` value if you'd like to use a different Python version.
 1. Modify the `INSTALL_DIR` to the directory where the repository has been cloned to.
+1. Refresh your zsh/bash environment with `$ source ~/.zshrc` or `$ source ~/.bashrc`
 ```bash
 # xjtools
 tools() {
@@ -92,3 +93,4 @@ tools duplicate TOOL_NAME DUPLICATE_NAME
 This moves the tool into a sub hidden folder called `.deleted`, and appends an index value to the file if there are more than 1 of the same name.
 ```bash
 tools delete TOOL_NAME
+```
