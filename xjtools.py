@@ -12,7 +12,6 @@ from lib import xjtoolslib
 from lib import xjinstaller
 
 _VERSION = "2.0.0"
-_PROTECTED_TOOL_NAMES = ["new", "edit", "delete", "duplicate", "list", "rename", "install", "help"]
 
 if (__name__ == "__main__"):
     p = argparse.ArgumentParser(description='xj-tools.py (v{0})'.format(_VERSION), formatter_class=argparse.RawTextHelpFormatter)
@@ -41,9 +40,6 @@ if (__name__ == "__main__"):
             xjtoolslib._duplicate_tool(args.tool_name, args.new_tool_name)
         elif (args.command == "delete"):
             xjtoolslib._delete_tool(args.tool_name)
-        elif (args.command == "help"):
-            xjtoolslib._output_msg("Help TBD")
-            # Implement a help function
         else:
             xjtoolslib._output_msg("Unrecognised command")
     except Exception as e:
