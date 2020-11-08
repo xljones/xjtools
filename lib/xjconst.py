@@ -52,7 +52,7 @@ _PRINT_PREFIX = "[xjtools]"
 
 # A list of tool names that cannot be used
 # These are used by the library itself.
-_PROTECTED_TOOL_NAMES = ["new", "edit", "delete", "duplicate", "list", "rename", "install", "help"]
+_PROTECTED_TOOL_NAMES = ["new", "edit", "delete", "duplicate", "list", "rename", "help"]
 
 if (__name__ == "__main__"):
     xjtoolslib._output_msg("Error: xjconst.py is a library, and can't be called directly. Try using `cd .. && python3 xjtools.py -h` for help")
