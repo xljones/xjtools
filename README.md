@@ -11,7 +11,7 @@ Collection of small tools and scripts used daily, along with a small framework f
 tools() {
   # xjtools - Configuration start
   PYTHON_INTERPRETER=python3
-  INSTALL_DIR=~/GitHub/my-tools
+  INSTALL_DIR=~/GitHub/xjtools
   # xjtools - Configuration end
 
   TOOLS_DIR=tools
