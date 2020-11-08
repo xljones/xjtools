@@ -86,13 +86,19 @@ def _list_scripts():
 '''
 Description: Create a new tool in the tools directory
 '''
-def _create_new_tool(tool_name):
+def _new_tool(tool_name):
+    # Check a tool name has been given
+    if tool_name == None:
+        raise Exception("No new tool name given.")
+
+    # Check the tool does not already exist
     root_dir = os.path.dirname(os.path.abspath(__file__))
     filename = "{0}.py".format(tool_name)
     filepath = os.path.join(root_dir, _TOOLS_DIR, filename)
-
     if os.path.exists(filepath):
-        raise Exception("Tool '{0}' already exists".format(tool_name))
+        raise FileException("Tool named '{0}' already exists".format(tool_name))
+
+    # Create the tool if no errors raised
     else:
         print(tool_name)
         f = open(filepath, "w+")
@@ -100,7 +106,7 @@ def _create_new_tool(tool_name):
             newfile = _NEWFILE.replace(find, replace)
         f.write(newfile)
         f.close()
-        print("Done: A new tool '{0}' has been created. Use `tools edit {0}` to edit".format(tool_name))
+        _xj_msg("Done: A new tool '{0}' has been created. Use `tools edit {0}` to edit".format(tool_name))
 
 '''
 Description: Edit a tool in this directory
@@ -111,10 +117,10 @@ def _edit_tool(tool_name):
     filepath = os.path.join(root_dir, _TOOLS_DIR, filename)
 
     if not os.path.exists(filepath):
-        raise Exception("File '{0}' does not exist. Create it with: `tools new {1}`".format(filename, tool_name))
+        raise FileException("File '{0}' does not exist. Create it with: `tools new {1}`".format(filename, tool_name))
     else:
-        print("Openning '{0}' in Atom".format(filepath))
-        os.system("atom {0}".format(filepath))
+        print("Openning '{0}' with `{1}`".format(filepath, _EDIT_TOOL))
+        os.system("{1} {0}".format(_EDIT_TOOL, filepath))
 
 '''
 Description: Takes in an old tool, and gives it a new name
@@ -133,9 +139,9 @@ def _rename_tool(tool_name, new_name):
     re_argparser =  r'^(    p = argparse\.ArgumentParser\(description=\'tools\/)(.*)(\.py \(v\{0\}\)\'\.format\(_VERSION\)\))'
 
     if not os.path.exists(filepath):
-        raise Exception("Tool '{0}' does not exist".format(tool_name))
+        raise FileException("Tool '{0}' does not exist".format(tool_name))
     elif os.path.exists(filepath_new):
-        raise Exception("There is already a tool called '{0}', choose another new name".format(new_name))
+        raise FileException("There is already a tool called '{0}', choose another new name".format(new_name))
     else:
         confirmation = input("Are you sure you want to rename '{0}' to '{1}'? [Y/n]: ".format(tool_name, new_name))
         if confirmation.lower() == "y":
@@ -179,9 +185,9 @@ def _duplicate_tool(tool_name, new_name):
     re_argparser =  r'^(    p = argparse\.ArgumentParser\(description=\'tools\/)(.*)(\.py \(v\{0\}\)\'\.format\(_VERSION\)\))'
 
     if not os.path.exists(filepath):
-        raise Exception("Tool '{0}' does not exist".format(tool_name))
+        raise FileException("Tool '{0}' does not exist".format(tool_name))
     elif os.path.exists(filepath_new):
-        raise Exception("There is already a tool called '{0}', choose another new name".format(new_name))
+        raise FileException("There is already a tool called '{0}', choose another new name".format(new_name))
     else:
         with open(filepath_new, 'w') as newf:
             with open(filepath, 'r') as f:
