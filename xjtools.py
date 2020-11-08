@@ -12,7 +12,7 @@ from lib import xjtoolslib
 from lib import xjinstaller
 
 _VERSION = "2.0.0"
-_PROTECTED_TOOL_NAMES = ["new", "edit", "delete", "duplicate", "list", "rename"]
+_PROTECTED_TOOL_NAMES = ["new", "edit", "delete", "duplicate", "list", "rename", "install"]
 
 if (__name__ == "__main__"):
     p = argparse.ArgumentParser(description='xj-tools.py (v{0})'.format(_VERSION), formatter_class=argparse.RawTextHelpFormatter)
