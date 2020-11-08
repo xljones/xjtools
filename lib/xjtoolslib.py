@@ -11,47 +11,7 @@ import re
 import prettytable
 import datetime
 import shutil
-
-# Command to run to edit a file
-# e.g. if you use Atom: `atom`
-#      if using vscode: `code -add`
-_EDIT_TOOL = "code -add"
-
-# The location of the tools directory relative
-# to the location of this script.
-_TOOLS_DIR = "../tools"
-
-# The format for the datetime stamp whenver
-# it is written to a tool file
-_DATETIME_FORMAT = "%d %b %Y"
-
-# The new file prototype that will be used to
-# create all new scripts from.
-_NEWFILE = """'''
-    Script:      tools/$FILENAME
-    Description: ...
-    Author:      Xander Jones (xander@xljones.com)
-    Web:         xljones.com
-    Date:        $DATE
-'''
-
-import argparse
-import os
-import sys
-
-_VERSION = \"1.0.0\"
-
-def _do_something():
-    print("Hello World! from {0}".format(__file__))
-
-if (__name__ == \"__main__\"):
-    p = argparse.ArgumentParser(description='tools/$FILENAME (v{0})'.format(_VERSION))
-    # p.add_argument("positional_argument")
-    # p.add_argument('-s', '--string', help='')
-    # p.add_argument('-b', '--bool', help='', action='store_true')
-    args = p.parse_args()
-
-    _do_something()"""
+from . import xjconst
 
 '''
 Description: List all of the scripts in the
@@ -59,7 +19,7 @@ Description: List all of the scripts in the
 '''
 def _list_scripts():
     root_dir = os.path.dirname(os.path.abspath(__file__))
-    files = os.listdir(os.path.join(root_dir, _TOOLS_DIR))
+    files = os.listdir(os.path.join(root_dir, xjconst._TOOLS_DIR))
     re_version = "_VERSION = \"(.*)\""
     re_desc = "    Description: (.*)"
 
@@ -70,7 +30,7 @@ def _list_scripts():
         if file[-3:] == ".py":
             version = None
             desc = None
-            with open(os.path.join(root_dir, _TOOLS_DIR, file), 'r') as f:
+            with open(os.path.join(root_dir, xjconst._TOOLS_DIR, file), 'r') as f:
                 for line in f:
                     re_find_version = re.match(re_version, line)
                     re_find_desc = re.match(re_desc, line)
@@ -89,21 +49,20 @@ Description: Create a new tool in the tools directory
 def _new_tool(tool_name):
     # Check a tool name has been given
     if tool_name == None:
-        raise Exception("No new tool name given.")
+        raise Exception("No new tool name given")
 
     # Check the tool does not already exist
     root_dir = os.path.dirname(os.path.abspath(__file__))
     filename = "{0}.py".format(tool_name)
-    filepath = os.path.join(root_dir, _TOOLS_DIR, filename)
+    filepath = os.path.join(root_dir, xjconst._TOOLS_DIR, filename)
     if os.path.exists(filepath):
-        raise FileException("Tool named '{0}' already exists".format(tool_name))
+        raise Exception("Tool named '{0}' already exists".format(tool_name))
 
     # Create the tool if no errors raised
     else:
-        print(tool_name)
         f = open(filepath, "w+")
-        for find, replace in {"$FILENAME":filename, "$NAME":tool_name, "$DATE":datetime.datetime.now().strftime(_DATETIME_FORMAT)}.items():
-            newfile = _NEWFILE.replace(find, replace)
+        for find, replace in {"$FILENAME":filename, "$NAME":tool_name, "$DATE":datetime.datetime.now().strftime(xjconst._DATETIME_FORMAT)}.items():
+            newfile = xjconst._NEWFILE.replace(find, replace)
         f.write(newfile)
         f.close()
         _xj_msg("Done: A new tool '{0}' has been created. Use `tools edit {0}` to edit".format(tool_name))
@@ -114,13 +73,13 @@ Description: Edit a tool in this directory
 def _edit_tool(tool_name):
     root_dir = os.path.dirname(os.path.abspath(__file__))
     filename = "{0}.py".format(tool_name)
-    filepath = os.path.join(root_dir, _TOOLS_DIR, filename)
+    filepath = os.path.join(root_dir, xjconst._TOOLS_DIR, filename)
 
     if not os.path.exists(filepath):
         raise FileException("File '{0}' does not exist. Create it with: `tools new {1}`".format(filename, tool_name))
     else:
-        print("Openning '{0}' with `{1}`".format(filepath, _EDIT_TOOL))
-        os.system("{1} {0}".format(_EDIT_TOOL, filepath))
+        print("Openning '{0}' with `{1}`".format(filepath, xjconst._EDIT_TOOL))
+        os.system("{1} {0}".format(xjconst._EDIT_TOOL, filepath))
 
 '''
 Description: Takes in an old tool, and gives it a new name
@@ -131,8 +90,8 @@ def _rename_tool(tool_name, new_name):
     root_dir = os.path.dirname(os.path.abspath(__file__))
     filename = "{0}.py".format(tool_name)
     filename_new = "{0}.py".format(new_name)
-    filepath = os.path.join(root_dir, _TOOLS_DIR, filename)
-    filepath_new = os.path.join(root_dir, _TOOLS_DIR, filename_new)
+    filepath = os.path.join(root_dir, xjconst._TOOLS_DIR, filename)
+    filepath_new = os.path.join(root_dir, xjconst._TOOLS_DIR, filename_new)
 
     re_scriptname = r'^(    Script:      tools\/)(.*)(\.py)'
     re_date =       r'^(    Date:        )(\w+ \w+ \w+)'
@@ -157,7 +116,7 @@ def _rename_tool(tool_name, new_name):
                             print(">> Found scriptname on line {0}, replace with:".format(index+1))
                             print("'{0}'".format(newline))
                         elif re_find_date:
-                            newdate = datetime.datetime.now().strftime(_DATETIME_FORMAT)
+                            newdate = datetime.datetime.now().strftime(xjconst._DATETIME_FORMAT)
                             newline = "{0}{1}\r\n".format(re_find_date.groups()[0], newdate)
                             print(">> Found date on line {0}, replace with:".format(index+1))
                             print("'{0}'".format(newline))
@@ -177,8 +136,8 @@ def _duplicate_tool(tool_name, new_name):
     root_dir = os.path.dirname(os.path.abspath(__file__))
     filename = "{0}.py".format(tool_name)
     filename_new = "{0}.py".format(new_name)
-    filepath = os.path.join(root_dir, _TOOLS_DIR, filename)
-    filepath_new = os.path.join(root_dir, _TOOLS_DIR, filename_new)
+    filepath = os.path.join(root_dir, xjconst._TOOLS_DIR, filename)
+    filepath_new = os.path.join(root_dir, xjconst._TOOLS_DIR, filename_new)
 
     re_scriptname = r'^(    Script:      tools\/)(.*)(\.py)'
     re_date =       r'^(    Date:        )(\w+ \w+ \w+)'
@@ -201,7 +160,7 @@ def _duplicate_tool(tool_name, new_name):
                         print(">> Found scriptname on line {0}, replace with:".format(index+1))
                         print("'{0}'".format(newline))
                     elif re_find_date:
-                        newdate = datetime.datetime.now().strftime(_DATETIME_FORMAT)
+                        newdate = datetime.datetime.now().strftime(xjconst._DATETIME_FORMAT)
                         newline = "{0}{1}\r\n".format(re_find_date.groups()[0], newdate)
                         print(">> Found date on line {0}, replace with:".format(index+1))
                         print("'{0}'".format(newline))
@@ -220,14 +179,14 @@ Description: Deletes the selected tool from the ../tools/ dir
 def _delete_tool(tool_name):
     root_dir = os.path.dirname(os.path.abspath(__file__))
     filename = "{0}.py".format(tool_name)
-    filepath = os.path.join(root_dir, _TOOLS_DIR, filename)
+    filepath = os.path.join(root_dir, xjconst._TOOLS_DIR, filename)
 
     if not os.path.exists(filepath):
         raise FileNotFoundError("Error: Tool '{0}' does not exist".format(tool_name))
     else:
         confirmation = input("Are you sure you want to delete '{0}'? [Y/n]: ".format(tool_name))
         if confirmation.lower() == "y":
-            deleted_dir = os.path.join(root_dir, _TOOLS_DIR, ".deleted")
+            deleted_dir = os.path.join(root_dir, xjconst._TOOLS_DIR, ".deleted")
             if not os.path.exists(deleted_dir):
                 os.mkdir(deleted_dir)
 
