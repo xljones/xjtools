@@ -12,9 +12,18 @@ import prettytable
 import datetime
 import shutil
 
+# Command to run to edit a file
+# e.g. if you use Atom: `atom`
+#      if using vscode: `code -add`
+_EDIT_TOOL = "code -add"
+
 # The location of the tools directory relative
 # to the location of this script.
 _TOOLS_DIR = "../tools"
+
+# The format for the datetime stamp whenver
+# it is written to a tool file
+_DATETIME_FORMAT = "%d %b %Y"
 
 # The new file prototype that will be used to
 # create all new scripts from.
