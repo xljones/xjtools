@@ -1,37 +1,47 @@
-# my-tools
+# xjtools
 Collection of small tools and scripts used daily, along with a small framework for quickly creating new tools, and editing current ones.
 
 ## Installation
 1. Clone this repository
-2. Add the following to `~/.zshrc`, or `~/.bashrc` depending on zsh or bash terminal use
-3. Modify the `INSTALL_DIR` to the directory where the repository has been cloned to.
+1. Add the following function to `~/.zshrc`, or `~/.bashrc` depending on zsh or bash terminal use
+1. Modify the `PYTHON_INTERPRETER` value if you'd like to use a different Python version.
+1. Modify the `INSTALL_DIR` to the directory where the repository has been cloned to.
 ```bash
-# function to call the py tool if exists with arguments
+# xjtools
 tools() {
+  # xjtools - Configuration start
+  PYTHON_INTERPRETER=python3
   INSTALL_DIR=~/GitHub/my-tools
+  # xjtools - Configuration end
+
+  TOOLS_DIR=tools
+  XJTOOLS=$INSTALL_DIR/xjtools.py
+
   # If no arguments given, jump straight to the tools folder
   if [ -z "$1" ]; then
     cd $INSTALL_DIR
-  # if arguments are given, try and run the script with additional arguments given
+
+  # if arguments are given, check if it's a lib command
   else
-    if [ "$1" = "new" ]; then
-      python3 $INSTALL_DIR/new.py ${@:2}
-    elif [ "$1" = "edit" ]; then
-      python3 $INSTALL_DIR/edit.py ${@:2}
-    elif [ "$1" = "list" ]; then
-      python3 $INSTALL_DIR/list.py ${@:2}
-    elif [ "$1" = "delete" ]; then
-      python3 $INSTALL_DIR/delete.py ${@:2}
-    elif [ "$1" = "rename" ]; then
-      python3 $INSTALL_DIR/rename.py ${@:2}
-    elif [ "$1" = "duplicate" ]; then
-      python3 $INSTALL_DIR/duplicate.py ${@:2}
-    else
-      FILE=$INSTALL_DIR/tools/$1.py
-      if test -f "$FILE"; then
-        python3 $FILE ${@:2}
+    if [[ "$1" == "help" ]] then
+      $PYTHON_INTERPRETER $XJTOOLS -h
+    elif [[ "$1" == "new"       ||
+            "$1" == "list"      ||
+            "$1" == "edit"      ||
+            "$1" == "delete"    ||
+            "$1" == "rename"    ||
+            "$1" == "duplicate" ]] then
+      if test -f "$XJTOOLS"; then
+        $PYTHON_INTERPRETER $XJTOOLS ${@:1}
       else
-        echo "Error: tool not found"
+        echo "[xjtools] Error: xjtools.py was not found at $XJTOOLS"
+      fi
+    else
+      FILE=$INSTALL_DIR/$TOOLS_DIR/$1.py
+      if test -f "$FILE"; then
+        $PYTHON_INTERPRETER $FILE ${@:2}
+      else
+        echo "[xjtools] Error: tool '$1' not found, try \`tools list\` to find the tool."
       fi
     fi
   fi
@@ -47,12 +57,13 @@ $ tools list
 produces the following output
 ```
 $ tools list
-+---------+---------+-----------------------------------------------------+
-| Tool    | Version | Description                                         |
-+---------+---------+-----------------------------------------------------+
-| upper   |  1.0.0  | Convert any following arguments to upper case       |
-| minlink |  1.0.0  | Convert a Bugsnag long link into useful information |
-+---------+---------+-----------------------------------------------------+
+[xjtools] Listing tools found in /Users/xanderjones/GitHub/my-tools/tools
++---+-------------+---------+-----------------------------------------------------+
+| # | Tool        | Version | Description                                         |
++---+-------------+---------+-----------------------------------------------------+
+| 1 | upper       | 1.0.0   | Convert any following arguments to upper case       |
+| 2 | minlink     | 1.0.1   | Convert a Bugsnag long link into useful information |
++---+-------------+---------+-----------------------------------------------------+
 ```
 ### Call a tool for use
 ```bash
@@ -63,7 +74,7 @@ $ tools TOOL_NAME [arguments] arguments
 $ tools new TOOL_NAME
 ```
 ### Edit a tool
-By default this opens in Atom. If this is not installed you will need to modify the zsh script
+By default this opens in VSCode. You can modify the value `_EDIT_TOOL` in `./lib/xjconst.py` if you'd like to use another editor.
 ```bash
 tools edit TOOL_NAME
 ```

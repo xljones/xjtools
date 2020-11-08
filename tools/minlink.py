@@ -1,9 +1,9 @@
 '''
-    Script:      my-tools:minlink.py
+    Script:      tools/minlink.py
     Description: Convert a Bugsnag long link into useful information
     Author:      Xander Jones (xander@xljones.com)
     Web:         xljones.com
-    Date:        11 May 2020
+    Date:        03 Oct 2020
 '''
 
 import argparse
@@ -44,7 +44,7 @@ def _bugsnag_minify(link):
         print("no match")
 
 if (__name__ == "__main__"):
-    p = argparse.ArgumentParser(description='my-tools:minlink.py (v{0})'.format(_VERSION))
+    p = argparse.ArgumentParser(description='tools/minlink.py (v{0})'.format(_VERSION))
     p.add_argument("bugsnag_link", help="The Bugsnag link to get data from")
     # p.add_argument('-s', '--string', help='')
     # p.add_argument('-b', '--bool', help='', action='store_true')

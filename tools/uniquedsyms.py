@@ -1,5 +1,5 @@
 '''
-    Script:      my-tools:uniquedsyms.py
+    Script:      tools/uniquedsyms.py
     Description: ...
     Author:      Xander Jones (xander@xljones.com)
     Web:         xljones.com
@@ -16,7 +16,7 @@ def _do_something():
     print("Hello World! from {0}".format(__file__))
 
 if (__name__ == "__main__"):
-    p = argparse.ArgumentParser(description='my-tools:uniquedsyms.py (v{0})'.format(_VERSION))
+    p = argparse.ArgumentParser(description='tools/uniquedsyms.py (v{0})'.format(_VERSION))
     # p.add_argument("positional_argument")
     # p.add_argument('-s', '--string', help='')
     # p.add_argument('-b', '--bool', help='', action='store_true')

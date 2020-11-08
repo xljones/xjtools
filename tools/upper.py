@@ -1,5 +1,5 @@
 '''
-    Script:      my-tools/upper.py
+    Script:      tools/upper.py
     Description: Convert any following arguments to upper case
     Author:      Xander Jones (xander@xljones.com)
     Web:         xljones.com
