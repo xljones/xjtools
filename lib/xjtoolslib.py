@@ -61,8 +61,9 @@ def _new_tool(tool_name):
     # Create the tool if no errors raised
     else:
         f = open(filepath, "w+")
-        for find, replace in {"$FILENAME":filename, "$NAME":tool_name, "$DATE":datetime.datetime.now().strftime(xjconst._DATETIME_FORMAT)}.items():
-            newfile = xjconst._NEWFILE.replace(find, replace)
+        newfile = xjconst._NEWFILE;
+        for find, replace in {"$FILENAME":filename, "$DATE":datetime.datetime.now().strftime(xjconst._DATETIME_FORMAT)}.items():
+            newfile = newfile.replace(find, replace)
         f.write(newfile)
         f.close()
         _xj_msg("Done: A new tool '{0}' has been created. Use `tools edit {0}` to edit".format(tool_name))
