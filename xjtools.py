@@ -7,6 +7,7 @@
 '''
 
 import argparse
+import sys
 from lib import xjtoolslib
 from lib import xjinstaller
 
@@ -27,21 +28,25 @@ if (__name__ == "__main__"):
     p.add_argument('-v', '--verbose', help='Enable verbose output', action='store_true')
     args = p.parse_args()
 
-    if (args.command == "install"):
-        print("Install TBC")
-        # Needs to add to .zshrc
-        # Needs to install requirements
-    elif (args.command == "list"): 
-        xjtoolslib._list_scripts()
-    elif (args.command == "new"):
-        xjtoolslib._create_new_tool(args.tool_name)
-    elif (args.command == "edit"):
-        xjtoolslib._edit_tool(args.tool_name)
-    elif (args.command == "rename"):
-        xjtoolslib._rename_tool(args.tool_name, args.new_tool_name)
-    elif (args.command == "duplicate"):
-        xjtoolslib._duplicate_tool(args.tool_name, args.new_tool_name)
-    elif (args.command == "delete"):
-        xjtoolslib._delete_tool(args.tool_name)
-    else:
-        print("Unrecognised command")
+    try:
+        if (args.command == "install"):
+            print("Install TBD")
+            # Needs to add to .zshrc/.bashrc
+            # Needs to install requirements
+            # python3 -m pip install -r requirements.txt
+        elif (args.command == "list"): 
+            xjtoolslib._list_scripts()
+        elif (args.command == "new"):
+            xjtoolslib._new_tool(args.tool_name)
+        elif (args.command == "edit"):
+            xjtoolslib._edit_tool(args.tool_name)
+        elif (args.command == "rename"):
+            xjtoolslib._rename_tool(args.tool_name, args.new_tool_name)
+        elif (args.command == "duplicate"):
+            xjtoolslib._duplicate_tool(args.tool_name, args.new_tool_name)
+        elif (args.command == "delete"):
+            xjtoolslib._delete_tool(args.tool_name)
+        else:
+            print("Unrecognised command")
+    except Exception as e:
+        print("[xjtools] Error: {0}".format(str(e)))
