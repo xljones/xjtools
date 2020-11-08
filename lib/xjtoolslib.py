@@ -235,3 +235,6 @@ def _delete_tool(tool_name):
 
 if (__name__ == "__main__"):
     raise Exception("[xjtools] Error: xjtoolslib.py is a library, and can't be called directly. Try using `cd .. && python3 xjtools.py -h`")
+
+def _xj_msg(msg):
+    print("[xjtools] {0}".format(msg))
