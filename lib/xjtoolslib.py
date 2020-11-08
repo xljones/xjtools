@@ -96,7 +96,7 @@ def _create_new_tool(tool_name):
     else:
         print(tool_name)
         f = open(filepath, "w+")
-        for find, replace in {"$FILENAME":filename, "$NAME":tool_name, "$DATE":datetime.datetime.now().strftime("%d %b %Y")}.items():
+        for find, replace in {"$FILENAME":filename, "$NAME":tool_name, "$DATE":datetime.datetime.now().strftime(_DATETIME_FORMAT)}.items():
             newfile = _NEWFILE.replace(find, replace)
         f.write(newfile)
         f.close()
@@ -151,7 +151,7 @@ def _rename_tool(tool_name, new_name):
                             print(">> Found scriptname on line {0}, replace with:".format(index+1))
                             print("'{0}'".format(newline))
                         elif re_find_date:
-                            newdate = datetime.datetime.now().strftime("%d %b %Y")
+                            newdate = datetime.datetime.now().strftime(_DATETIME_FORMAT)
                             newline = "{0}{1}\r\n".format(re_find_date.groups()[0], newdate)
                             print(">> Found date on line {0}, replace with:".format(index+1))
                             print("'{0}'".format(newline))
@@ -195,7 +195,7 @@ def _duplicate_tool(tool_name, new_name):
                         print(">> Found scriptname on line {0}, replace with:".format(index+1))
                         print("'{0}'".format(newline))
                     elif re_find_date:
-                        newdate = datetime.datetime.now().strftime("%d %b %Y")
+                        newdate = datetime.datetime.now().strftime(_DATETIME_FORMAT)
                         newline = "{0}{1}\r\n".format(re_find_date.groups()[0], newdate)
                         print(">> Found date on line {0}, replace with:".format(index+1))
                         print("'{0}'".format(newline))
