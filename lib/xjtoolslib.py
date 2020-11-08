@@ -42,7 +42,7 @@ def _list_tools():
                     if version and desc:
                         break
             table.add_row([index, file.replace(".py",""), version, desc])
-    _xjtools_msg("Listing tools found in {0}".format(filepath))
+    _output_msg("Listing tools found in {0}".format(filepath))
     print(table)
 
 '''
@@ -52,6 +52,10 @@ def _new_tool(tool_name):
     # Check a tool name has been given
     if tool_name == None:
         raise AttributeError("No new tool name given to create")
+
+    # Check the tool name is not protected
+    if tool_name in xjconst._PROTECTED_TOOL_NAMES:
+        raise ValueError("'{0}' is a protected tool name, try using another name".format(tool_name))
 
     # Check the tool does not already exist
     root_dir = os.path.dirname(os.path.abspath(__file__))
@@ -68,7 +72,7 @@ def _new_tool(tool_name):
             newfile = newfile.replace(find, replace)
         f.write(newfile)
         f.close()
-        _xjtools_msg("Done: A new tool '{0}' has been created. Use `tools edit {0}` to edit".format(tool_name))
+        _output_msg("Done: A new tool '{0}' has been created. Use `tools edit {0}` to edit".format(tool_name))
 
 '''
 Description: Edit a tool in this directory
@@ -83,11 +87,11 @@ def _edit_tool(tool_name):
     filename = "{0}.py".format(tool_name)
     filepath = os.path.abspath(os.path.join(root_dir, xjconst._TOOLS_DIR, filename))
     if not os.path.exists(filepath):
-        raise FileNotFoundError("code -add '{0}' does not exist. Create it with: `tools new {1}`".format(filename, tool_name))
+        raise FileNotFoundError("'{0}' does not exist. Create it with: `tools new {1}`".format(filename, tool_name))
 
     # Edit the tool if no errors raised
     else:
-        _xjtools_msg("Openning '{0}' with `{1}`".format(filepath, xjconst._EDIT_TOOL))
+        _output_msg("Openning '{0}' with `{1}`".format(filepath, xjconst._EDIT_TOOL))
         os.system("{0} {1}".format(xjconst._EDIT_TOOL, filepath))
 
 '''
@@ -98,10 +102,13 @@ Description: Takes in an old tool, and gives it a new name
 def _rename_tool(tool_name, new_tool_name):
     # Check old tool name param has been given
     if tool_name == None:
-        raise AttributeError("tool_name was not given to rename")
+        raise AttributeError("Tool name was not given to rename")
     # Check new tool name to rename to has been given
     elif new_tool_name == None:
-        raise AttributeError("new_tool_name was not given")
+        raise AttributeError("New tool name was not given to rename to")
+    # Check the tool name is not protected
+    if new_tool_name in xjconst._PROTECTED_TOOL_NAMES:
+        raise ValueError("'{0}' is a protected tool name, try using another name".format(new_tool_name))
 
     # Check file exists, and new rename name is not already taken
     root_dir = os.path.dirname(os.path.abspath(__file__))
@@ -132,17 +139,17 @@ def _rename_tool(tool_name, new_tool_name):
                         re_find_argparser = re.match(re_argparser, line)
                         if re_find_scriptname:
                             newline = "{0}{1}{2}\r\n".format(re_find_scriptname.groups()[0], new_tool_name, re_find_scriptname.groups()[2])
-                            _xjtools_msg(">> Found scriptname on line {0}, replace with:".format(index+1))
-                            _xjtools_msg("'{0}'".format(newline.rstrip()))
+                            _output_msg(">> Found scriptname on line {0}, replace with:".format(index+1))
+                            _output_msg("'{0}'".format(newline.rstrip()))
                         elif re_find_date:
                             newdate = datetime.datetime.now().strftime(xjconst._DATETIME_FORMAT)
                             newline = "{0}{1}\r\n".format(re_find_date.groups()[0], newdate)
-                            _xjtools_msg(">> Found date on line {0}, replace with:".format(index+1))
-                            _xjtools_msg("'{0}'".format(newline.rstrip()))
+                            _output_msg(">> Found date on line {0}, replace with:".format(index+1))
+                            _output_msg("'{0}'".format(newline.rstrip()))
                         elif re_find_argparser:
                             newline = "{0}{1}{2}\r\n".format(re_find_argparser.groups()[0], new_tool_name, re_find_argparser.groups()[2])
-                            _xjtools_msg(">> Found argparser on line {0}, replace with:".format(index+1))
-                            _xjtools_msg("'{0}'".format(newline.rstrip()))
+                            _output_msg(">> Found argparser on line {0}, replace with:".format(index+1))
+                            _output_msg("'{0}'".format(newline.rstrip()))
                         else:
                             newline = line
                         newf.write(newline)
@@ -154,10 +161,13 @@ Description: Copy a tool and rename the internals
 def _duplicate_tool(tool_name, new_tool_name):
     # Check old tool name param has been given
     if tool_name == None:
-        raise AttributeError("tool_name was not given to duplicate")
+        raise AttributeError("Tool name was not given to duplicate")
     # Check new tool name to duplicate to has been given
     elif new_tool_name == None:
-        raise AttributeError("new_tool_name was not given")
+        raise AttributeError("New tool name was not given to name duplicate")
+    # Check the tool name is not protected
+    if new_tool_name in xjconst._PROTECTED_TOOL_NAMES:
+        raise ValueError("'{0}' is a protected tool name, try using another name".format(new_tool_name))
 
     # Check file exists, and new duplicate name is not already taken
     root_dir = os.path.dirname(os.path.abspath(__file__))
@@ -186,17 +196,17 @@ def _duplicate_tool(tool_name, new_tool_name):
                     re_find_argparser = re.match(re_argparser, line)
                     if re_find_scriptname:
                         newline = "{0}{1}{2}\r\n".format(re_find_scriptname.groups()[0], new_tool_name, re_find_scriptname.groups()[2])
-                        _xjtools_msg(">> Found scriptname on line {0}, replace with:".format(index+1))
-                        _xjtools_msg("'{0}'".format(newline.rstrip()))
+                        _output_msg(">> Found scriptname on line {0}, replace with:".format(index+1))
+                        _output_msg("'{0}'".format(newline.rstrip()))
                     elif re_find_date:
                         newdate = datetime.datetime.now().strftime(xjconst._DATETIME_FORMAT)
                         newline = "{0}{1}\r\n".format(re_find_date.groups()[0], newdate)
-                        _xjtools_msg(">> Found date on line {0}, replace with:".format(index+1))
-                        _xjtools_msg("'{0}'".format(newline.rstrip()))
+                        _output_msg(">> Found date on line {0}, replace with:".format(index+1))
+                        _output_msg("'{0}'".format(newline.rstrip()))
                     elif re_find_argparser:
                         newline = "{0}{1}{2}\r\n".format(re_find_argparser.groups()[0], new_tool_name, re_find_argparser.groups()[2])
-                        _xjtools_msg(">> Found argparser on line {0}, replace with:".format(index+1))
-                        _xjtools_msg("'{0}'".format(newline.rstrip()))
+                        _output_msg(">> Found argparser on line {0}, replace with:".format(index+1))
+                        _output_msg("'{0}'".format(newline.rstrip()))
                     else:
                         newline = line
                     newf.write(newline)
@@ -208,14 +218,14 @@ Description: Deletes the selected tool from the ../tools/ dir
 def _delete_tool(tool_name):
     # Check tool name param has been given
     if tool_name == None:
-        raise AttributeError("Error: Tool name was not given to delete")
+        raise AttributeError("Tool name was not given to delete")
 
     root_dir = os.path.dirname(os.path.abspath(__file__))
     filename = "{0}.py".format(tool_name)
     filepath = os.path.abspath(os.path.join(root_dir, xjconst._TOOLS_DIR, filename))
 
     if not os.path.exists(filepath):
-        raise FileNotFoundError("Error: Tool '{0}' does not exist".format(tool_name))
+        raise FileNotFoundError("Tool '{0}' does not exist".format(tool_name))
     else:
         confirmation = input("{0} Are you sure you want to delete '{1}'? [Y/n]: ".format(xjconst._PRINT_PREFIX, tool_name))
         if confirmation.lower() == "y":
@@ -229,7 +239,7 @@ def _delete_tool(tool_name):
                 deleted_file_index += 1
 
             shutil.move(filepath, "{0}_{1}".format(deleted_filepath, deleted_file_index))
-            _xjtools_msg("Done: Tool '{0}' has been moved to the '.deleted' directory".format(tool_name))
+            _output_msg("Done: Tool '{0}' has been moved to the '.deleted' directory".format(tool_name))
 
 '''
 Description: Manages output messages from the library
@@ -238,4 +248,4 @@ def _output_msg(msg):
     print("{0} {1}".format(xjconst._PRINT_PREFIX, msg))
 
 if (__name__ == "__main__"):
-    _xjtools_msg("Error: xjtoolslib.py is a library, and can't be called directly. Try using `cd .. && python3 xjtools.py -h` for help")
+    _output_msg("Error: xjtoolslib.py is a library, and can't be called directly. Try using `cd .. && python3 xjtools.py -h` for help")

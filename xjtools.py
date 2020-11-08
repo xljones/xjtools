@@ -29,12 +29,7 @@ if (__name__ == "__main__"):
     args = p.parse_args()
 
     try:
-        if (args.command == "install"):
-            xjtoolslib._output_msg("Install TBD")
-            # Needs to add to .zshrc/.bashrc
-            # Needs to install requirements
-            # python3 -m pip install -r requirements.txt
-        elif (args.command == "list"): 
+        if (args.command == "list"): 
             xjtoolslib._list_tools()
         elif (args.command == "new"):
             xjtoolslib._new_tool(args.tool_name)
