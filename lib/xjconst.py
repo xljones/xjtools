@@ -4,6 +4,8 @@
     Web:         xljones.com
 '''
 
+from . import xjtoolslib
+
 # Command to run to edit a file
 # e.g. if you use Atom: `atom`
 #      if using vscode: `code -add`
@@ -44,3 +46,9 @@ if (__name__ == \"__main__\"):
     args = p.parse_args()
 
     _do_something()"""
+
+# The prefix before printing any lines
+_PRINT_PREFIX = "[xjtools]"
+
+if (__name__ == "__main__"):
+    xjtoolslib._output_msg("Error: xjconst.py is a library, and can't be called directly. Try using `cd .. && python3 xjtools.py -h` for help")

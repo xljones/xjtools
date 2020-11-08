@@ -12,7 +12,7 @@ from lib import xjtoolslib
 from lib import xjinstaller
 
 _VERSION = "2.0.0"
-_PROTECTED_TOOL_NAMES = ["new", "edit", "delete", "duplicate", "list", "rename", "install"]
+_PROTECTED_TOOL_NAMES = ["new", "edit", "delete", "duplicate", "list", "rename", "install", "help"]
 
 if (__name__ == "__main__"):
     p = argparse.ArgumentParser(description='xj-tools.py (v{0})'.format(_VERSION), formatter_class=argparse.RawTextHelpFormatter)
@@ -30,12 +30,12 @@ if (__name__ == "__main__"):
 
     try:
         if (args.command == "install"):
-            print("Install TBD")
+            xjtoolslib._output_msg("Install TBD")
             # Needs to add to .zshrc/.bashrc
             # Needs to install requirements
             # python3 -m pip install -r requirements.txt
         elif (args.command == "list"): 
-            xjtoolslib._list_scripts()
+            xjtoolslib._list_tools()
         elif (args.command == "new"):
             xjtoolslib._new_tool(args.tool_name)
         elif (args.command == "edit"):
@@ -46,7 +46,10 @@ if (__name__ == "__main__"):
             xjtoolslib._duplicate_tool(args.tool_name, args.new_tool_name)
         elif (args.command == "delete"):
             xjtoolslib._delete_tool(args.tool_name)
+        elif (args.command == "help"):
+            xjtoolslib._output_msg("Help TBD")
+            # Implement a help function
         else:
-            print("Unrecognised command")
+            xjtoolslib._output_msg("Unrecognised command")
     except Exception as e:
-        print("[xjtools] Error: {0}".format(str(e)))
+        xjtoolslib._output_msg("Error: {0}".format(str(e)))
