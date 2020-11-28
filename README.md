@@ -2,7 +2,7 @@
 Collection of small tools and scripts used daily, along with a small framework for quickly creating new tools, and editing current ones.
 
 ## Installation
-1. Clone this repository
+1. Clone this repository with `$ git clone https://github.com/xander-jones/xjtools.git`
 1. Add the following function to `~/.zshrc`, or `~/.bashrc` depending on zsh or bash terminal use
 1. Modify the `PYTHON_INTERPRETER` value if you'd like to use a different Python version.
 1. Modify the `INSTALL_DIR` to the directory where the repository has been cloned to.
