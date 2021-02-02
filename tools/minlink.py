@@ -15,8 +15,6 @@ import pyperclip
 _VERSION = "1.0.1"
 
 def _bugsnag_minify(link):
-    # https://app.bugsnag.com/feeld/feeld/errors/5eba8f21c839d7001776ae3f?filters[error.status][]=open&filters[event.since][]=30d&event_id=5eba90cd005b3ec900cc0000
-    # print("[Link] {0}".format(link))
     re_link = r'^(https?:\/\/app.bugsnag.com)\/([^\/]*)\/([^\/]*)\/([^\/]*)\/([^\/?]*)\??(.*).*$'
     filter_index = 5
     re_match_link = re.match(re_link, link)
