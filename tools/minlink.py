@@ -44,8 +44,6 @@ def _bugsnag_minify(link):
 if (__name__ == "__main__"):
     p = argparse.ArgumentParser(description='tools/minlink.py (v{0})'.format(_VERSION))
     p.add_argument("bugsnag_link", help="The Bugsnag link to get data from")
-    # p.add_argument('-s', '--string', help='')
-    # p.add_argument('-b', '--bool', help='', action='store_true')
     args = p.parse_args()
 
     _bugsnag_minify(args.bugsnag_link)
