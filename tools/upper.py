@@ -6,17 +6,16 @@
     Date:        06 May 2020
 '''
 
-import argparse
 import os
 import sys
 
 _VERSION = "1.0.0"
 _ROOT_DIR = os.path.dirname(os.path.abspath(__file__))
 
-if (__name__ == "__main__"):
-    str = ""
+if __name__ == "__main__":
+    THE_STR = ""
     for index, arg in enumerate(sys.argv):
         if index > 0:
-            str += "{0} ".format(arg.upper())
-            
-    print(str.upper())
+            THE_STR += "{arg.upper()} "
+
+    print(THE_STR.upper())
