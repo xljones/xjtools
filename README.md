@@ -1,13 +1,24 @@
 # xjtools
+
 Collection of small tools and scripts used daily, along with a small framework for quickly creating new tools, and editing current ones.
 
+# Linting
+
+Run `pylint` with:
+
+```sh
+pylint $(git ls-files '*.py')      
+```
+
 ## Installation
+
 1. Clone this repository with `$ git clone https://github.com/xander-jones/xjtools.git`
 1. Add the following function to `~/.zshrc`, or `~/.bashrc` depending on zsh or bash terminal use
 1. Modify the `PYTHON_INTERPRETER` value if you'd like to use a different Python version.
 1. Modify the `INSTALL_DIR` to the directory where the repository has been cloned to.
 1. Refresh your zsh/bash environment with `$ source ~/.zshrc` or `$ source ~/.bashrc`
-```bash
+
+```sh
 # xjtools
 tools() {
   # xjtools - Configuration start
@@ -50,12 +61,17 @@ tools() {
 ```
 
 ## Usage
+
 The following command can be run from anywhere on your computer if you have installed the alias in the installation instructions.
+
 ### List the tools
-```bash
+
+```sh
 $ tools list
 ```
+
 produces the following output
+
 ```
 $ tools list
 [xjtools] Listing tools found in /Users/xanderjones/GitHub/my-tools/tools
@@ -66,31 +82,47 @@ $ tools list
 | 2 | minlink     | 1.0.1   | Convert a Bugsnag long link into useful information |
 +---+-------------+---------+-----------------------------------------------------+
 ```
+
 ### Call a tool for use
-```bash
+
+```sh
 $ tools TOOL_NAME [arguments] arguments
 ```
+
 ### Create a new tool
-```bash
+
+```sh
 $ tools new TOOL_NAME
 ```
+
 ### Edit a tool
+
 By default this opens in VSCode. You can modify the value `_EDIT_TOOL` in `./lib/xjconst.py` if you'd like to use another editor.
-```bash
+
+```sh
 tools edit TOOL_NAME
 ```
+
 ### Rename a tool
+
 Renaming a tool will also update the internals to reflect the changes, and up the change date to today
-```bash
+
+```sh
 tools rename TOOL_NAME NEW_NAME
 ```
+
 ### Duplicate a tool
+
 Duplicating a tool is similar to renaming, but won't remove the old script you've copied from.
-```bash
+
+```sh
 tools duplicate TOOL_NAME DUPLICATE_NAME
 ```
+
 ### Delete a tool
+
 This moves the tool into a sub hidden folder called `.deleted`, and appends an index value to the file if there are more than 1 of the same name.
-```bash
+
+```sh
 tools delete TOOL_NAME
 ```
