@@ -7,9 +7,7 @@
 '''
 
 import argparse
-import os
 import re
-import sys
 import pyperclip
 
 _VERSION = "1.0.1"
@@ -22,28 +20,28 @@ def _bugsnag_minify(link):
 
     if re_match_link:
         print("💎  Filters")
-        g = re_match_link.groups()
-        for index, match in enumerate(g[filter_index].split("&")):
-            print("├── [{0}][{1}] {2}".format(filter_index, index, match))
+        groups = re_match_link.groups()
+        for index, match in enumerate(groups[filter_index].split("&")):
+            print("├── [{filter_index}][{index}] {match}")
             if match[:8].lower() == "event_id":
                 event_id = match
                 # strip the event_id to empty string if it doesn't exist.
-                if event_id == None:
+                if event_id is None:
                     event_id = ""
                 else:
-                    event_id = "?{0}".format(event_id)
+                    event_id = "?{event_id}"
 
         print("💎  Minlink")
-        minlink = "{0}/{1}/{2}/{3}/{4}{5}".format(g[0], g[1], g[2], g[3], g[4], event_id)
-        print("├── [Minlink] {0}".format(minlink))
+        minlink = "{groups[0]}/{groups[1]}/{groups[2]}/{groups[3]}/{groups[4]}{event_id}"
+        print("├── [Minlink] {minlink}")
         print("└── Copied to clipboard")
         pyperclip.copy(minlink)
     else:
         print("no match")
 
-if (__name__ == "__main__"):
-    p = argparse.ArgumentParser(description='tools/minlink.py (v{0})'.format(_VERSION))
+if __name__ == "__main__":
+    p = argparse.ArgumentParser(description='tools/minlink.py (v{_VERSION})')
     p.add_argument("bugsnag_link", help="The Bugsnag link to get data from")
-    args = p.parse_args()
+    a = p.parse_args()
 
-    _bugsnag_minify(args.bugsnag_link)
+    _bugsnag_minify(a.bugsnag_link)
