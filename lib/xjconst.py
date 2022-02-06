@@ -8,20 +8,20 @@ from . import xjtoolslib
 
 # Command to run to edit a file
 # e.g. if you use Atom: `atom`
-#      if using vscode: `code -add`
-_EDIT_TOOL = "code -add"
+#      if using vscode: `code`
+EDIT_TOOL = "code"
 
 # The location of the tools directory relative
 # to the location of this script.
-_TOOLS_DIR = "../tools"
+TOOLS_DIR = "../tools"
 
 # The format for the datetime stamp whenver
 # it is written to a tool file
-_DATETIME_FORMAT = "%d %b %Y"
+DATETIME_FORMAT = "%d %b %Y"
 
 # The new file prototype that will be used to
 # create all new scripts from.
-_NEWFILE = """'''
+NEWFILE = """'''
     Script:      tools/$FILENAME
     Description: ...
     Author:      Xander Jones (xander@xljones.com)
@@ -48,11 +48,12 @@ if (__name__ == \"__main__\"):
     _do_something()"""
 
 # The prefix before printing any lines
-_PRINT_PREFIX = "[xjtools]"
+PRINT_PREFIX = "[xjtools]"
 
 # A list of tool names that cannot be used
 # These are used by the library itself.
-_PROTECTED_TOOL_NAMES = ["new", "edit", "delete", "duplicate", "list", "rename", "help"]
+PROTECTED_TOOL_NAMES = ["new", "edit", "delete", "duplicate", "list", "rename", "help"]
 
-if (__name__ == "__main__"):
-    xjtoolslib._output_msg("Error: xjconst.py is a library, and can't be called directly. Try using `cd .. && python3 xjtools.py -h` for help")
+if __name__ == "__main__":
+    xjtoolslib.output_msg("Error: xjconst.py is a library, and can't be called directly. " \
+        "Try using `cd .. && python3 xjtools.py -h` for help")
