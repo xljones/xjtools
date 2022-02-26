@@ -306,4 +306,4 @@ def output_msg(msg: str):
     print(f"{xjtools.const.PRINT_PREFIX} {msg}")
 
 if __name__ == "__main__":
-    output_msg("Error: xjtools is a library, and can't be called directly.")
+    raise RuntimeError("xjtools is a library, and can't be called directly.")
