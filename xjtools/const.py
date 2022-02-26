@@ -1,10 +1,7 @@
 '''
-    Script:      lib/xjconst.py
     Author:      Xander Jones (xander@xljones.com)
     Web:         xljones.com
 '''
-
-from . import xjtoolslib
 
 # Command to run to edit a file
 # e.g. if you use Atom: `atom`
@@ -39,10 +36,10 @@ def _do_something():
     print("Hello World! from {0}".format(__file__))
 
 if (__name__ == \"__main__\"):
-    p = argparse.ArgumentParser(description='tools/$FILENAME (v{0})'.format(_VERSION))
+    p = argparse.ArgumentParser(description=f"tools/$FILENAME (v{_VERSION})")
     # p.add_argument("positional_argument")
-    # p.add_argument('-s', '--string', help='')
-    # p.add_argument('-b', '--bool', help='', action='store_true')
+    # p.add_argument("-s", "--string", help="")
+    # p.add_argument("-b", "--bool", help="", action="store_true")
     args = p.parse_args()
 
     _do_something()"""
@@ -54,6 +51,14 @@ PRINT_PREFIX = "[xjtools]"
 # These are used by the library itself.
 PROTECTED_TOOL_NAMES = ["new", "edit", "delete", "duplicate", "list", "rename", "help"]
 
+# a dictionary of regexes used to parse tool files
+REGEXES = {
+    "version":     r"_VERSION = \"(.*)\"",
+    "description": r"    Description: (.*)",
+    "scriptname":  r"^(    Script:      tools\/)(.*)(\.py)",
+    "date":        r"^(    Date:        )(\w+ \w+ \w+)",
+    "argparser":   r"^(    p = argparse\.ArgumentParser\(description=\"tools\/)(.*)(\.py \(v\{_VERSION\}\)\"\))"
+}
+
 if __name__ == "__main__":
-    xjtoolslib.output_msg("Error: xjconst.py is a library, and can't be called directly. " \
-        "Try using `cd .. && python3 xjtools.py -h` for help")
+    raise RuntimeError("Error: this is the constants file, and can't be called directly. ")
