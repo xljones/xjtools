@@ -3,6 +3,9 @@
     Web:         xljones.com
 '''
 
+# The package version
+VERSION = "2.0.0"
+
 # Command to run to edit a file
 # e.g. if you use Atom: `atom`
 #      if using vscode: `code`
@@ -61,4 +64,4 @@ REGEXES = {
 }
 
 if __name__ == "__main__":
-    raise RuntimeError("Error: this is the constants file, and can't be called directly. ")
+    raise RuntimeError("Error: xjtools is a library, and can't be called directly.")
