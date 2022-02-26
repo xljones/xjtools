@@ -7,14 +7,14 @@
 '''
 
 import argparse
-import sys
-from lib import xjtoolslib
-from lib import xjinstaller
+import xjtools.core
+import xjtools.const
 
-_VERSION = "2.0.0"
-
-if (__name__ == "__main__"):
-    p = argparse.ArgumentParser(description='xj-tools.py (v{0})'.format(_VERSION), formatter_class=argparse.RawTextHelpFormatter)
+if __name__ == "__main__":
+    p = argparse.ArgumentParser(
+        description=f"xjtools (v{xjtools.const.VERSION})",
+        formatter_class=argparse.RawTextHelpFormatter
+    )
     p.add_argument("command", help='The command that you want to run\r\n' +
                                     '* list\r\n' +
                                     '* new TOOL_NAME\r\n' +
@@ -28,19 +28,19 @@ if (__name__ == "__main__"):
     args = p.parse_args()
 
     try:
-        if (args.command == "list"): 
-            xjtoolslib._list_tools()
-        elif (args.command == "new"):
-            xjtoolslib._new_tool(args.tool_name)
-        elif (args.command == "edit"):
-            xjtoolslib._edit_tool(args.tool_name)
-        elif (args.command == "rename"):
-            xjtoolslib._rename_tool(args.tool_name, args.new_tool_name)
-        elif (args.command == "duplicate"):
-            xjtoolslib._duplicate_tool(args.tool_name, args.new_tool_name)
-        elif (args.command == "delete"):
-            xjtoolslib._delete_tool(args.tool_name)
+        if args.command == "list":
+            xjtools.core.list_tools()
+        elif args.command == "new":
+            xjtools.core.new_tool(args.tool_name)
+        elif args.command == "edit":
+            xjtools.core.edit_tool(args.tool_name)
+        elif args.command == "rename":
+            xjtools.core.rename_tool(args.tool_name, args.new_tool_name)
+        elif args.command == "duplicate":
+            xjtools.core.duplicate_tool(args.tool_name, args.new_tool_name)
+        elif args.command == "delete":
+            xjtools.core.delete_tool(args.tool_name)
         else:
-            xjtoolslib._output_msg("Unrecognised command")
+            xjtools.core.output_msg("Unrecognised command")
     except Exception as e:
-        xjtoolslib._output_msg("Error: {0}".format(str(e)))
+        xjtools.core.output_msg(f"Error: {str(e)}")
