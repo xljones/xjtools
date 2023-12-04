@@ -4,7 +4,7 @@
     Web:         xljones.com
 """
 
-from . import xjtoolslib
+from app.lib import helpers
 
 # Command to run to edit a file
 # e.g. if you use Atom: `atom`
@@ -55,6 +55,6 @@ _PRINT_PREFIX = "[xjtools]"
 _PROTECTED_TOOL_NAMES = ["new", "edit", "delete", "duplicate", "list", "rename", "help"]
 
 if __name__ == "__main__":
-    xjtoolslib._output_msg(
+    helpers._output_msg(
         "Error: xjconst.py is a library, and can't be called directly. Try using `cd .. && python3 xjtools.py -h` for help"
     )

@@ -13,7 +13,7 @@ import sys
 
 import prettytable
 
-from . import xjconst
+from app.lib import const
 
 """
 Description: List all of the scripts in the
@@ -23,7 +23,7 @@ Description: List all of the scripts in the
 
 def _list_tools():
     root_dir = os.path.dirname(os.path.abspath(__file__))
-    filepath = os.path.abspath(os.path.join(root_dir, xjconst._TOOLS_DIR))
+    filepath = os.path.abspath(os.path.join(root_dir, const._TOOLS_DIR))
     files = os.listdir(filepath)
     re_version = '_VERSION = "(.*)"'
     re_desc = "    Description: (.*)"
@@ -32,10 +32,10 @@ def _list_tools():
     table.align = "l"
 
     for index, file in enumerate(files):
-        if file[-3:] == ".py":
+        if file[-3:] == ".py" and not file == "__init__.py":
             version = None
             desc = None
-            with open(os.path.join(root_dir, xjconst._TOOLS_DIR, file), "r") as f:
+            with open(os.path.join(root_dir, const._TOOLS_DIR, file), "r") as f:
                 for line in f:
                     re_find_version = re.match(re_version, line)
                     re_find_desc = re.match(re_desc, line)
@@ -61,23 +61,23 @@ def _new_tool(tool_name):
         raise AttributeError("No new tool name given to create")
 
     # Check the tool name is not protected
-    if tool_name in xjconst._PROTECTED_TOOL_NAMES:
+    if tool_name in const._PROTECTED_TOOL_NAMES:
         raise ValueError("'{0}' is a protected tool name, try using another name".format(tool_name))
 
     # Check the tool does not already exist
     root_dir = os.path.dirname(os.path.abspath(__file__))
     filename = "{0}.py".format(tool_name)
-    filepath = os.path.abspath(os.path.join(root_dir, xjconst._TOOLS_DIR, filename))
+    filepath = os.path.abspath(os.path.join(root_dir, const._TOOLS_DIR, filename))
     if os.path.exists(filepath):
         raise FileExistsError("Tool named '{0}' already exists".format(tool_name))
 
     # Create the tool if no errors raised
     else:
         f = open(filepath, "w+")
-        newfile = xjconst._NEWFILE
+        newfile = const._NEWFILE
         for find, replace in {
             "$FILENAME": filename,
-            "$DATE": datetime.datetime.now().strftime(xjconst._DATETIME_FORMAT),
+            "$DATE": datetime.datetime.now().strftime(const._DATETIME_FORMAT),
         }.items():
             newfile = newfile.replace(find, replace)
         f.write(newfile)
@@ -102,7 +102,7 @@ def _edit_tool(tool_name):
     # Check the tool exists
     root_dir = os.path.dirname(os.path.abspath(__file__))
     filename = "{0}.py".format(tool_name)
-    filepath = os.path.abspath(os.path.join(root_dir, xjconst._TOOLS_DIR, filename))
+    filepath = os.path.abspath(os.path.join(root_dir, const._TOOLS_DIR, filename))
     if not os.path.exists(filepath):
         raise FileNotFoundError(
             "'{0}' does not exist. Create it with: `tools new {1}`".format(filename, tool_name)
@@ -110,8 +110,8 @@ def _edit_tool(tool_name):
 
     # Edit the tool if no errors raised
     else:
-        _output_msg("Openning '{0}' with `{1}`".format(filepath, xjconst._EDIT_TOOL))
-        os.system("{0} {1}".format(xjconst._EDIT_TOOL, filepath))
+        _output_msg("Openning '{0}' with `{1}`".format(filepath, const._EDIT_TOOL))
+        os.system("{0} {1}".format(const._EDIT_TOOL, filepath))
 
 
 """
@@ -129,7 +129,7 @@ def _rename_tool(tool_name, new_tool_name):
     elif new_tool_name == None:
         raise AttributeError("New tool name was not given to rename to")
     # Check the tool name is not protected
-    if new_tool_name in xjconst._PROTECTED_TOOL_NAMES:
+    if new_tool_name in const._PROTECTED_TOOL_NAMES:
         raise ValueError(
             "'{0}' is a protected tool name, try using another name".format(new_tool_name)
         )
@@ -138,8 +138,8 @@ def _rename_tool(tool_name, new_tool_name):
     root_dir = os.path.dirname(os.path.abspath(__file__))
     filename = "{0}.py".format(tool_name)
     filename_new = "{0}.py".format(new_tool_name)
-    filepath = os.path.abspath(os.path.join(root_dir, xjconst._TOOLS_DIR, filename))
-    filepath_new = os.path.abspath(os.path.join(root_dir, xjconst._TOOLS_DIR, filename_new))
+    filepath = os.path.abspath(os.path.join(root_dir, const._TOOLS_DIR, filename))
+    filepath_new = os.path.abspath(os.path.join(root_dir, const._TOOLS_DIR, filename_new))
 
     re_scriptname = r"^(    Script:      tools\/)(.*)(\.py)"
     re_date = r"^(    Date:        )(\w+ \w+ \w+)"
@@ -156,7 +156,7 @@ def _rename_tool(tool_name, new_tool_name):
     else:
         confirmation = input(
             "{0} Are you sure you want to rename '{1}' to '{2}'? [Y/n]: ".format(
-                xjconst._PRINT_PREFIX, tool_name, new_tool_name
+                const._PRINT_PREFIX, tool_name, new_tool_name
             )
         )
         if confirmation.lower() == "y":
@@ -178,7 +178,7 @@ def _rename_tool(tool_name, new_tool_name):
                             )
                             _output_msg("'{0}'".format(newline.rstrip()))
                         elif re_find_date:
-                            newdate = datetime.datetime.now().strftime(xjconst._DATETIME_FORMAT)
+                            newdate = datetime.datetime.now().strftime(const._DATETIME_FORMAT)
                             newline = "{0}{1}\r\n".format(re_find_date.groups()[0], newdate)
                             _output_msg(
                                 ">> Found date on line {0}, replace with:".format(index + 1)
@@ -213,7 +213,7 @@ def _duplicate_tool(tool_name, new_tool_name):
     elif new_tool_name == None:
         raise AttributeError("New tool name was not given to name duplicate")
     # Check the tool name is not protected
-    if new_tool_name in xjconst._PROTECTED_TOOL_NAMES:
+    if new_tool_name in const._PROTECTED_TOOL_NAMES:
         raise ValueError(
             "'{0}' is a protected tool name, try using another name".format(new_tool_name)
         )
@@ -222,8 +222,8 @@ def _duplicate_tool(tool_name, new_tool_name):
     root_dir = os.path.dirname(os.path.abspath(__file__))
     filename = "{0}.py".format(tool_name)
     filename_new = "{0}.py".format(new_tool_name)
-    filepath = os.path.abspath(os.path.join(root_dir, xjconst._TOOLS_DIR, filename))
-    filepath_new = os.path.abspath(os.path.join(root_dir, xjconst._TOOLS_DIR, filename_new))
+    filepath = os.path.abspath(os.path.join(root_dir, const._TOOLS_DIR, filename))
+    filepath_new = os.path.abspath(os.path.join(root_dir, const._TOOLS_DIR, filename_new))
 
     re_scriptname = r"^(    Script:      tools\/)(.*)(\.py)"
     re_date = r"^(    Date:        )(\w+ \w+ \w+)"
@@ -256,7 +256,7 @@ def _duplicate_tool(tool_name, new_tool_name):
                         )
                         _output_msg("'{0}'".format(newline.rstrip()))
                     elif re_find_date:
-                        newdate = datetime.datetime.now().strftime(xjconst._DATETIME_FORMAT)
+                        newdate = datetime.datetime.now().strftime(const._DATETIME_FORMAT)
                         newline = "{0}{1}\r\n".format(re_find_date.groups()[0], newdate)
                         _output_msg(">> Found date on line {0}, replace with:".format(index + 1))
                         _output_msg("'{0}'".format(newline.rstrip()))
@@ -288,18 +288,18 @@ def _delete_tool(tool_name):
 
     root_dir = os.path.dirname(os.path.abspath(__file__))
     filename = "{0}.py".format(tool_name)
-    filepath = os.path.abspath(os.path.join(root_dir, xjconst._TOOLS_DIR, filename))
+    filepath = os.path.abspath(os.path.join(root_dir, const._TOOLS_DIR, filename))
 
     if not os.path.exists(filepath):
         raise FileNotFoundError("Tool '{0}' does not exist".format(tool_name))
     else:
         confirmation = input(
             "{0} Are you sure you want to delete '{1}'? [Y/n]: ".format(
-                xjconst._PRINT_PREFIX, tool_name
+                const._PRINT_PREFIX, tool_name
             )
         )
         if confirmation.lower() == "y":
-            deleted_dir = os.path.join(root_dir, xjconst._TOOLS_DIR, ".deleted")
+            deleted_dir = os.path.join(root_dir, const._TOOLS_DIR, ".deleted")
             if not os.path.exists(deleted_dir):
                 os.mkdir(deleted_dir)
 
@@ -320,7 +320,7 @@ Description: Manages output messages from the library
 
 
 def _output_msg(msg):
-    print("{0} {1}".format(xjconst._PRINT_PREFIX, msg))
+    print("{0} {1}".format(const._PRINT_PREFIX, msg))
 
 
 if __name__ == "__main__":
