@@ -1,10 +1,10 @@
-'''
+"""
     Script:      tools/minlink.py
     Description: Convert a Bugsnag long link into useful information
     Author:      Xander Jones (xander@xljones.com)
     Web:         xljones.com
     Date:        03 Oct 2020
-'''
+"""
 
 import argparse
 import os
@@ -14,8 +14,9 @@ import pyperclip
 
 _VERSION = "1.0.1"
 
+
 def _bugsnag_minify(link):
-    re_link = r'^(https?:\/\/app.bugsnag.com)\/([^\/]*)\/([^\/]*)\/([^\/]*)\/([^\/?]*)\??(.*).*$'
+    re_link = r"^(https?:\/\/app.bugsnag.com)\/([^\/]*)\/([^\/]*)\/([^\/]*)\/([^\/?]*)\??(.*).*$"
     filter_index = 5
     re_match_link = re.match(re_link, link)
     event_id = None
@@ -34,15 +35,18 @@ def _bugsnag_minify(link):
                     event_id = "?{0}".format(event_id)
 
         print("💎  Minlink")
-        minlink = "{0}/{1}/{2}/{3}/{4}{5}".format(g[0], g[1], g[2], g[3], g[4], event_id)
+        minlink = "{0}/{1}/{2}/{3}/{4}{5}".format(
+            g[0], g[1], g[2], g[3], g[4], event_id
+        )
         print("├── [Minlink] {0}".format(minlink))
         print("└── Copied to clipboard")
         pyperclip.copy(minlink)
     else:
         print("no match")
 
-if (__name__ == "__main__"):
-    p = argparse.ArgumentParser(description='tools/minlink.py (v{0})'.format(_VERSION))
+
+if __name__ == "__main__":
+    p = argparse.ArgumentParser(description="tools/minlink.py (v{0})".format(_VERSION))
     p.add_argument("bugsnag_link", help="The Bugsnag link to get data from")
     # p.add_argument('-s', '--string', help='')
     # p.add_argument('-b', '--bool', help='', action='store_true')

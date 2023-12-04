@@ -1,8 +1,8 @@
-'''
+"""
     Script:      lib/xjconst.py
     Author:      Xander Jones (xander@xljones.com)
     Web:         xljones.com
-'''
+"""
 
 from . import xjtoolslib
 
@@ -54,5 +54,7 @@ _PRINT_PREFIX = "[xjtools]"
 # These are used by the library itself.
 _PROTECTED_TOOL_NAMES = ["new", "edit", "delete", "duplicate", "list", "rename", "help"]
 
-if (__name__ == "__main__"):
-    xjtoolslib._output_msg("Error: xjconst.py is a library, and can't be called directly. Try using `cd .. && python3 xjtools.py -h` for help")
+if __name__ == "__main__":
+    xjtoolslib._output_msg(
+        "Error: xjconst.py is a library, and can't be called directly. Try using `cd .. && python3 xjtools.py -h` for help"
+    )
