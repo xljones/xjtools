@@ -36,9 +36,7 @@ def _bugsnag_minify(link):
                     event_id = "?{0}".format(event_id)
 
         print("💎  Minlink")
-        minlink = "{0}/{1}/{2}/{3}/{4}{5}".format(
-            g[0], g[1], g[2], g[3], g[4], event_id
-        )
+        minlink = "{0}/{1}/{2}/{3}/{4}{5}".format(g[0], g[1], g[2], g[3], g[4], event_id)
         print("├── [Minlink] {0}".format(minlink))
         print("└── Copied to clipboard")
         pyperclip.copy(minlink)

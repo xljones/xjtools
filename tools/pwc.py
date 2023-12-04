@@ -13,9 +13,7 @@ _VERSION = "1.0.0"
 
 def _get_positional_pw_chars(args):
     if len(args.character_positions) <= 0:
-        print(
-            "Error: No password character positons were given (see help for more info with `-h`)"
-        )
+        print("Error: No password character positons were given (see help for more info with `-h`)")
     else:
         print("Getting password characters:")
         for pos in args.character_positions:

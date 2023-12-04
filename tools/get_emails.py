@@ -23,12 +23,8 @@ def _extract_emails(input_file):
 
 
 if __name__ == "__main__":
-    p = argparse.ArgumentParser(
-        description="tools/get_emails.py (v{0})".format(_VERSION)
-    )
-    p.add_argument(
-        "input_filepath", help="the raw input file with email addresses to extract"
-    )
+    p = argparse.ArgumentParser(description="tools/get_emails.py (v{0})".format(_VERSION))
+    p.add_argument("input_filepath", help="the raw input file with email addresses to extract")
     args = p.parse_args()
 
     _extract_emails(os.path.abspath(args.input_filepath))

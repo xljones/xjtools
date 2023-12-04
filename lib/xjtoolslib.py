@@ -62,9 +62,7 @@ def _new_tool(tool_name):
 
     # Check the tool name is not protected
     if tool_name in xjconst._PROTECTED_TOOL_NAMES:
-        raise ValueError(
-            "'{0}' is a protected tool name, try using another name".format(tool_name)
-        )
+        raise ValueError("'{0}' is a protected tool name, try using another name".format(tool_name))
 
     # Check the tool does not already exist
     root_dir = os.path.dirname(os.path.abspath(__file__))
@@ -107,9 +105,7 @@ def _edit_tool(tool_name):
     filepath = os.path.abspath(os.path.join(root_dir, xjconst._TOOLS_DIR, filename))
     if not os.path.exists(filepath):
         raise FileNotFoundError(
-            "'{0}' does not exist. Create it with: `tools new {1}`".format(
-                filename, tool_name
-            )
+            "'{0}' does not exist. Create it with: `tools new {1}`".format(filename, tool_name)
         )
 
     # Edit the tool if no errors raised
@@ -135,9 +131,7 @@ def _rename_tool(tool_name, new_tool_name):
     # Check the tool name is not protected
     if new_tool_name in xjconst._PROTECTED_TOOL_NAMES:
         raise ValueError(
-            "'{0}' is a protected tool name, try using another name".format(
-                new_tool_name
-            )
+            "'{0}' is a protected tool name, try using another name".format(new_tool_name)
         )
 
     # Check file exists, and new rename name is not already taken
@@ -145,9 +139,7 @@ def _rename_tool(tool_name, new_tool_name):
     filename = "{0}.py".format(tool_name)
     filename_new = "{0}.py".format(new_tool_name)
     filepath = os.path.abspath(os.path.join(root_dir, xjconst._TOOLS_DIR, filename))
-    filepath_new = os.path.abspath(
-        os.path.join(root_dir, xjconst._TOOLS_DIR, filename_new)
-    )
+    filepath_new = os.path.abspath(os.path.join(root_dir, xjconst._TOOLS_DIR, filename_new))
 
     re_scriptname = r"^(    Script:      tools\/)(.*)(\.py)"
     re_date = r"^(    Date:        )(\w+ \w+ \w+)"
@@ -157,9 +149,7 @@ def _rename_tool(tool_name, new_tool_name):
         raise FileNotFoundError("Tool '{0}' does not exist".format(tool_name))
     elif os.path.exists(filepath_new):
         raise FileExistsError(
-            "There is already a tool called '{0}', choose another new name".format(
-                new_tool_name
-            )
+            "There is already a tool called '{0}', choose another new name".format(new_tool_name)
         )
 
     # if no errors raised, rename the tool
@@ -184,22 +174,14 @@ def _rename_tool(tool_name, new_tool_name):
                                 re_find_scriptname.groups()[2],
                             )
                             _output_msg(
-                                ">> Found scriptname on line {0}, replace with:".format(
-                                    index + 1
-                                )
+                                ">> Found scriptname on line {0}, replace with:".format(index + 1)
                             )
                             _output_msg("'{0}'".format(newline.rstrip()))
                         elif re_find_date:
-                            newdate = datetime.datetime.now().strftime(
-                                xjconst._DATETIME_FORMAT
-                            )
-                            newline = "{0}{1}\r\n".format(
-                                re_find_date.groups()[0], newdate
-                            )
+                            newdate = datetime.datetime.now().strftime(xjconst._DATETIME_FORMAT)
+                            newline = "{0}{1}\r\n".format(re_find_date.groups()[0], newdate)
                             _output_msg(
-                                ">> Found date on line {0}, replace with:".format(
-                                    index + 1
-                                )
+                                ">> Found date on line {0}, replace with:".format(index + 1)
                             )
                             _output_msg("'{0}'".format(newline.rstrip()))
                         elif re_find_argparser:
@@ -209,9 +191,7 @@ def _rename_tool(tool_name, new_tool_name):
                                 re_find_argparser.groups()[2],
                             )
                             _output_msg(
-                                ">> Found argparser on line {0}, replace with:".format(
-                                    index + 1
-                                )
+                                ">> Found argparser on line {0}, replace with:".format(index + 1)
                             )
                             _output_msg("'{0}'".format(newline.rstrip()))
                         else:
@@ -235,9 +215,7 @@ def _duplicate_tool(tool_name, new_tool_name):
     # Check the tool name is not protected
     if new_tool_name in xjconst._PROTECTED_TOOL_NAMES:
         raise ValueError(
-            "'{0}' is a protected tool name, try using another name".format(
-                new_tool_name
-            )
+            "'{0}' is a protected tool name, try using another name".format(new_tool_name)
         )
 
     # Check file exists, and new duplicate name is not already taken
@@ -245,9 +223,7 @@ def _duplicate_tool(tool_name, new_tool_name):
     filename = "{0}.py".format(tool_name)
     filename_new = "{0}.py".format(new_tool_name)
     filepath = os.path.abspath(os.path.join(root_dir, xjconst._TOOLS_DIR, filename))
-    filepath_new = os.path.abspath(
-        os.path.join(root_dir, xjconst._TOOLS_DIR, filename_new)
-    )
+    filepath_new = os.path.abspath(os.path.join(root_dir, xjconst._TOOLS_DIR, filename_new))
 
     re_scriptname = r"^(    Script:      tools\/)(.*)(\.py)"
     re_date = r"^(    Date:        )(\w+ \w+ \w+)"
@@ -257,9 +233,7 @@ def _duplicate_tool(tool_name, new_tool_name):
         raise FileNotFoundError("Tool '{0}' does not exist".format(tool_name))
     elif os.path.exists(filepath_new):
         raise FileExistsError(
-            "There is already a tool called '{0}', choose another new name".format(
-                new_tool_name
-            )
+            "There is already a tool called '{0}', choose another new name".format(new_tool_name)
         )
 
     # If no errors raised, duplicate the tool
@@ -278,19 +252,13 @@ def _duplicate_tool(tool_name, new_tool_name):
                             re_find_scriptname.groups()[2],
                         )
                         _output_msg(
-                            ">> Found scriptname on line {0}, replace with:".format(
-                                index + 1
-                            )
+                            ">> Found scriptname on line {0}, replace with:".format(index + 1)
                         )
                         _output_msg("'{0}'".format(newline.rstrip()))
                     elif re_find_date:
-                        newdate = datetime.datetime.now().strftime(
-                            xjconst._DATETIME_FORMAT
-                        )
+                        newdate = datetime.datetime.now().strftime(xjconst._DATETIME_FORMAT)
                         newline = "{0}{1}\r\n".format(re_find_date.groups()[0], newdate)
-                        _output_msg(
-                            ">> Found date on line {0}, replace with:".format(index + 1)
-                        )
+                        _output_msg(">> Found date on line {0}, replace with:".format(index + 1))
                         _output_msg("'{0}'".format(newline.rstrip()))
                     elif re_find_argparser:
                         newline = "{0}{1}{2}\r\n".format(
@@ -299,9 +267,7 @@ def _duplicate_tool(tool_name, new_tool_name):
                             re_find_argparser.groups()[2],
                         )
                         _output_msg(
-                            ">> Found argparser on line {0}, replace with:".format(
-                                index + 1
-                            )
+                            ">> Found argparser on line {0}, replace with:".format(index + 1)
                         )
                         _output_msg("'{0}'".format(newline.rstrip()))
                     else:
@@ -339,18 +305,12 @@ def _delete_tool(tool_name):
 
             deleted_filepath = os.path.abspath(os.path.join(deleted_dir, filename))
             deleted_file_index = 0
-            while os.path.exists(
-                "{0}_{1}".format(deleted_filepath, deleted_file_index)
-            ):
+            while os.path.exists("{0}_{1}".format(deleted_filepath, deleted_file_index)):
                 deleted_file_index += 1
 
-            shutil.move(
-                filepath, "{0}_{1}".format(deleted_filepath, deleted_file_index)
-            )
+            shutil.move(filepath, "{0}_{1}".format(deleted_filepath, deleted_file_index))
             _output_msg(
-                "Done: Tool '{0}' has been moved to the '.deleted' directory".format(
-                    tool_name
-                )
+                "Done: Tool '{0}' has been moved to the '.deleted' directory".format(tool_name)
             )
 
 

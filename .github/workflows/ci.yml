@@ -20,7 +20,7 @@ jobs:
         python -m pip install -r requirements.txt
     - name: Analysing the code with Black
       run: |
-        black --check ./
+        python -m black --check ./
     - name: Analysing the code with isort
       run: |
-        isort --check ./
+        python -m isort --check ./
