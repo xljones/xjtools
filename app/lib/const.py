@@ -13,7 +13,7 @@ _EDIT_TOOL = "code -add"
 
 # The location of the tools directory relative
 # to the location of this script.
-_TOOLS_DIR = "../tools"
+_TOOLS_DIR = "../../tools"
 
 # The format for the datetime stamp whenver
 # it is written to a tool file
