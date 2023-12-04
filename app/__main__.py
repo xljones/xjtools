@@ -9,7 +9,7 @@
 import argparse
 import sys
 
-from lib import xjinstaller, xjtoolslib
+from app.lib import helpers, installer
 
 _VERSION = "2.0.0"
 
@@ -35,18 +35,18 @@ if __name__ == "__main__":
 
     try:
         if args.command == "list":
-            xjtoolslib._list_tools()
+            helpers._list_tools()
         elif args.command == "new":
-            xjtoolslib._new_tool(args.tool_name)
+            helpers._new_tool(args.tool_name)
         elif args.command == "edit":
-            xjtoolslib._edit_tool(args.tool_name)
+            helpers._edit_tool(args.tool_name)
         elif args.command == "rename":
-            xjtoolslib._rename_tool(args.tool_name, args.new_tool_name)
+            helpers._rename_tool(args.tool_name, args.new_tool_name)
         elif args.command == "duplicate":
-            xjtoolslib._duplicate_tool(args.tool_name, args.new_tool_name)
+            helpers._duplicate_tool(args.tool_name, args.new_tool_name)
         elif args.command == "delete":
-            xjtoolslib._delete_tool(args.tool_name)
+            helpers._delete_tool(args.tool_name)
         else:
-            xjtoolslib._output_msg("Unrecognised command")
+            helpers._output_msg("Unrecognised command")
     except Exception as e:
-        xjtoolslib._output_msg("Error: {0}".format(str(e)))
+        helpers._output_msg("Error: {0}".format(str(e)))

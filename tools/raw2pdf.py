@@ -19,7 +19,7 @@ import math
 
 
 class Raw2Pdf:
-    _raw_data: bytes
+    _raw_data: str
     _decoded_data: bytes
     _input_filename: str
     _input_filesize: int
@@ -42,7 +42,7 @@ class Raw2Pdf:
         self._convert_raw_to_pdf()
         self._write_output()
 
-    def _read_raw_input(self, input_filename: str) -> bytes:
+    def _read_raw_input(self, input_filename: str) -> str:
         with open(input_filename, "r") as file_in_handle:
             raw_data = file_in_handle.read()
             file_in_handle.close()
