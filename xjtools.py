@@ -8,8 +8,8 @@
 
 import argparse
 import sys
-from lib import xjtoolslib
-from lib import xjinstaller
+
+from lib import xjinstaller, xjtoolslib
 
 _VERSION = "2.0.0"
 

@@ -10,6 +10,7 @@ import argparse
 import os
 import re
 import sys
+
 import pyperclip
 
 _VERSION = "1.0.1"

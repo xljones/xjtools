@@ -5,12 +5,14 @@
 """
 
 import argparse
-import os
-import sys
-import re
-import prettytable
 import datetime
+import os
+import re
 import shutil
+import sys
+
+import prettytable
+
 from . import xjconst
 
 """

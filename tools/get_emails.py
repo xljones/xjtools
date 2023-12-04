@@ -7,8 +7,8 @@
 """
 
 import argparse
-import re
 import os
+import re
 
 _VERSION = "1.0.0"
 
