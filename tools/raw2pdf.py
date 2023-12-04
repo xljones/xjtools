@@ -19,7 +19,7 @@ import math
 
 
 class Raw2Pdf:
-    _raw_data: bytes
+    _raw_data: str
     _decoded_data: bytes
     _input_filename: str
     _input_filesize: int
