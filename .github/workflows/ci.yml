@@ -24,3 +24,6 @@ jobs:
     - name: Analysing the code with isort
       run: |
         python -m isort --check ./
+    - name: Analysing the code with mypy
+      run: |
+        python -m mypy ./
