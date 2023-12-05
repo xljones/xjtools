@@ -25,22 +25,22 @@ tools() {
   # if arguments are given, check if it's a lib command
   else
     if [[ "$1" == "help" ]] then
-      $PYTHON_INTERPRETER $XJTOOLS -h
+      (cd $INSTALL_DIR && $PYTHON_INTERPRETER -m $APP_DIR -h)
     elif [[ "$1" == "new"       ||
             "$1" == "list"      ||
             "$1" == "edit"      ||
             "$1" == "delete"    ||
             "$1" == "rename"    ||
             "$1" == "duplicate" ]] then
-      if test -f "$XJTOOLS"; then
-        $PYTHON_INTERPRETER $XJTOOLS ${@:1}
+      if test -d "$INSTALL_DIR/$APP_DIR"; then
+        (cd $INSTALL_DIR && $PYTHON_INTERPRETER -m $APP_DIR ${@:1})
       else
         echo "[xjtools] Error: xjtools.py was not found at $XJTOOLS"
       fi
     else
-      FILE=$INSTALL_DIR/$TOOLS_DIR/$1.py
+      FILE=$TOOLS_DIR/$1.py
       if test -f "$FILE"; then
-        $PYTHON_INTERPRETER $FILE ${@:2}
+        (cd $INSTALL_DIR && $PYTHON_INTERPRETER $FILE ${@:2})
       else
         echo "[xjtools] Error: tool '$1' not found, try \`tools list\` to find the tool."
       fi
