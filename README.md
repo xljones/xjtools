@@ -7,16 +7,16 @@ Collection of small tools and scripts used daily, along with a small framework f
 1. Modify the `PYTHON_INTERPRETER` value if you'd like to use a different Python version.
 1. Modify the `INSTALL_DIR` to the directory where the repository has been cloned to.
 1. Refresh your zsh/bash environment with `$ source ~/.zshrc` or `$ source ~/.bashrc`
+
 ```bash
 # xjtools
 tools() {
   # xjtools - Configuration start
-  PYTHON_INTERPRETER=python3
-  INSTALL_DIR=~/GitHub/xjtools
-  # xjtools - Configuration end
-
+  PYTHON_INTERPRETER=venv/bin/python
+  INSTALL_DIR=~/Git/xljones/xjtools
+  APP_DIR=app
   TOOLS_DIR=tools
-  XJTOOLS=$INSTALL_DIR/xjtools.py
+  # xjtools - Configuration end
 
   # If no arguments given, jump straight to the tools folder
   if [ -z "$1" ]; then
@@ -35,7 +35,7 @@ tools() {
       if test -d "$INSTALL_DIR/$APP_DIR"; then
         (cd $INSTALL_DIR && $PYTHON_INTERPRETER -m $APP_DIR ${@:1})
       else
-        echo "[xjtools] Error: xjtools.py was not found at $XJTOOLS"
+        echo "[xjtools] Error: module not found at $INSTALL_DIR/$APP_DIR"
       fi
     else
       FILE=$TOOLS_DIR/$1.py
@@ -47,6 +47,7 @@ tools() {
     fi
   fi
 }
+
 ```
 
 ## Usage
