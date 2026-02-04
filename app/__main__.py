@@ -7,9 +7,8 @@
 """
 
 import argparse
-import sys
 
-from app.lib import helpers, installer
+from app.lib import helpers
 
 _VERSION = "2.0.0"
 
